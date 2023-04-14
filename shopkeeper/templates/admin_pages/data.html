@@ -1,0 +1,19 @@
+{% extends 'admin_pages/admin_page.html'%} {% load static %}
+
+{% block admincontent %}
+<style>
+  #data {
+    color: #fda090 !important;
+  }
+</style>
+<div class="overview-boxes flex">
+ 
+    <!-- <a href="{% url 'categories' %}" id="categories" class="box t-c">
+      <h3 class="box-topic">تصنيفات</h3>
+    </a> -->
+    <a href="{% url 'products' %}" id="products" class="box t-c">
+      <h3 class="box-topic">بضائع</h3>
+    </a>
+  </div> 
+ 
+{% endblock %}

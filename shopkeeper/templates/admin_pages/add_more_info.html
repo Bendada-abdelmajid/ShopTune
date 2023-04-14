@@ -1,0 +1,80 @@
+{% extends 'admin_pages/setting.html'%}
+{% load static %}
+{% block adminnav %} 
+    <div class="sidebar-button">
+      <span class="dashboard">Profile</span>
+    </div>
+    <div class="links  f-start">
+        <a   href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a><span>/</span><span class="see">Profile </span>
+    </div>
+
+{% endblock %}
+{% block profileforms %}
+<style>
+    #Profiel {
+        background: #fda090 !important;
+    }
+  </style>
+
+
+<div class="form box ">
+    <form method=POST>
+        {% csrf_token %}
+        <p>
+            <label for="id_full_name">username :</label>
+            <input type="text" name="full_name" value="{{user.username}}" maxlength="50" required=""
+                id="id_full_name" dir="auto">
+
+        </p>
+        <p>
+            <label for="id_email">Email :</label>
+            <input type="email" name="email" value="{{user.email}}" required="" id="id_email" dir="ltr">
+        </p>
+        <p>
+
+            <label for="id_address">Address :</label>
+            <input type="text" name="address" value="{{profile.address}}" maxlength="200" id="id_address">
+
+
+        </p>
+
+
+        <p>
+            <label for="id_phone">Phone :</label>
+            <input type="number" name="phone" value="{{profile.phone}}" id="id_phone">
+
+
+        </p>
+
+
+        <p>
+            <label for="id_facebook">Facebook:</label>
+            <input type="url" name="facebook" value="{{profile.facebook}}" maxlength="200" id="id_facebook">
+
+
+        </p>
+
+
+        <p>
+            <label for="id_instagram">Instagrame:</label>
+            <input type="url" name="instagram" value="{{profile.instagram}}" maxlength="200" id="id_instagram">
+
+
+        </p>
+
+
+        <p>
+            <label for="id_tiktok">TikTok :</label>
+            <input type="url" name="tiktok" value="{{profile.tiktok}}" maxlength="200" id="id_tiktok">
+
+
+
+
+        </p>
+        <p>
+            <button type="submit" class="btn">Change</button>
+        </p>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+{% block adminnav %}
+<div class="sidebar-button">
+  <span class="dashboard">Send notifications</span>
+</div>
+<div class="links f-start">
+  <a href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a><span>/</span><span class="see">Send notifications</span>
+</div>
+<style>
+  #send_notificatioons {
+    color: #fda090 !important;
+  }
+</style>
+
+{% endblock %}
+{% block admincontent %}
+<div class="sent-notifications">
+  <div class="box gmail">
+ 
+ 
+  
+  
+  
+ 
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="gmail-content">
+        {% include 'admin_pages/notfication.html' %}
+      </div>
+  
+  
+      <input type="hidden" name="h2" id="h2-input">
+      <input type="hidden" name="p" id="p-input">
+  
+      <input type="hidden" name="prods" id="prods-input">
+      <div class="subject_box center overlay">
+        <div class="subject_content box">
+          <h3>Enter Email Subject</h3>
+          <input type="text" name="subject" id="subject-input">
+          <div class="center" style="gap:15px">
+            <button type="submit" class="btn" style="width: 100%;">send</button>
+            <button type="button" id="cancel-btn" class="btn gray" style="width: 100%;" id="sent">cancel</button>
+          </div>
+          
+
+        </div>
+      </div>
+      <button type="button" class="submit" id="sent">send</button>
+      
+    </form>
+  
+  </div>
+  <div class="form box ">
+    <h1 class="form-title">Send notifications</h1>
+    <form id="noti-form">
+      
+        <p>
+            <label for="id_title">Title :</label>
+            <input type="text" name="title" value="{{user.username}}" maxlength="50" required=""
+                id="id_title" >
+
+        </p>
+        <p>
+          <label for="id_description">Description :</label>
+          <textarea type="text" name="description" value="{{user.username}}"  required=""
+              id="id_description" ></textarea>
+
+        </p>
+       
+        <p>
+          <label for="id_products">Products :</label>
+          <select multiple id="id_products" required style="height: 150px;">
+            {% for p in products %}
+            <option value="{{p.id}}" >{{p}}</option>
+            {% endfor %}
+          </select>
+
+        </p>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+
+
+  const h2_cont = document.getElementById('notifi-title')
+  const p_cont = document.getElementById('notifi-discription')
+  const sent_btn=document.getElementById('sent')
+  const prods_con = document.querySelector('.gmail-content #email-prods-container')
+  const cancel_btn=document.getElementById("cancel-btn")
+  const noti_form= document.getElementById("noti-form")
+  noti_form.addEventListener('submit', (e) => { 
+    e.preventDefault();
+    const title= noti_form.querySelector('#id_title').value
+    const desc= noti_form.querySelector('#id_description').value
+    h2_cont.innerHTML=title
+    p_cont.innerHTML=desc
+    const ids= Array.from(noti_form.querySelector('#id_products').selectedOptions).map(x=>x.value)
+    console.log(ids)
+    "{% for prod in products %}"
+     if (ids.includes("{{prod.id}}")) {
+      prods_con.innerHTML +=`
+ 
+      <table width="210" border="0" cellspacing="0"
+      cellpadding="0" style="display: inline-block;vertical-align: top; margin:0 5px 25px;">
+        <tr>
+          <td class="fluid-img center pb20"
+            style="font-size:0pt; line-height:0pt;  padding-bottom:20px;">
+            <img src="{{prod.image.all.0.image.url}}"
+              width="210" height="309" border="0" style="height:309px;"
+              alt="" /></td>
+        </tr>
+        <tr>
+          <td class="h4 center pb10"
+            style="color:#222; font-family: 'Changa', sans-serif;; font-size:22px; line-height:28px; text-transform:uppercase; text-align:center; padding-bottom:10px;">
+            <multiline>{{prod.title}}</multiline>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="text2 center pb20"
+            style="color:#979797; font-family: 'Changa', sans-serif;font-size:16px; line-height:24px; text-align:center; padding-bottom:20px;">
+            <multiline dir="ltr">
+              <strong class="yellow"
+                style="color:#d1a24c;"> {{prod.price}} DH </strong>
+              
+              {% if prod.discount %}
+              &nbsp;
+              <span class="old-price"
+                style="text-decoration:line-through; font-size:14px; color:#979797;" >{{prod.oldprice}} DH
+              </span>
+              {% endif %}
+              
+            </multiline>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <table border="0" cellspacing="0"
+              cellpadding="0">
+              <tr>
+                <td class="text-button text-button2 dreamShop-btn-2"
+                  style="color:#222; font-family:'Raleway', Arial, sans-serif;font-family: 'Changa', sans-serif; font-size:12px; line-height:16px; text-align:center; text-transform:uppercase; border:2px solid #222; padding:12px 30px;">
+                  <multiline><a href="#"
+                      target="_blank"
+                      class="link"
+                      style="color:#222; text-decoration:none;"><span
+                        class="link"
+                        style="color:#222; text-decoration:none;">shop now
+                        </span></a>
+                  </multiline>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      `
+      
+    }
+    "{% endfor %}"
+
+    document.getElementById('h2-input').value = title
+    document.getElementById('p-input').value = desc
+    document.getElementById('prods-input').value = ids;
+    document.getElementById('sent').classList.add('show')
+    document.querySelector('.sent-notifications').classList.add('active')
+  })
+
+
+
+
+  cancel_btn.addEventListener('click', (e) => {
+ 
+ document.querySelector('.subject_box').classList.remove('show')
+})
+  sent_btn.addEventListener('click', (e) => {
+ 
+    document.querySelector('.subject_box').classList.add('show')
+  })
+</script>
+{% endblock %}

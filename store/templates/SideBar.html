@@ -1,0 +1,63 @@
+<div class="side-bar">
+   
+   
+        <div class="space_between filters-head">
+            <div class="f-start " style="gap:10px">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 144h448M112 256h288M208 368h96"></path></svg>
+                <h5>Filter</h5>
+            </div>
+            <p class="reset-btn">Reset Filter</p>
+        </div>
+        <div class="drop-down-menu">
+            <div class="drop-down-menu-head space_between" style="gap:10px">
+                <h4>Rest Tags</h4>
+                
+            </div>
+            <div class="drop-down-menu-body">
+                
+                
+                <p>
+                    <input type="checkbox" />
+                    <a  href="/products/?order=popular" onclick="check(this)">Popular Products</a>
+                </p>
+                <p>
+                    <input type="checkbox" />
+                    <a  href="/products/?order=discount" onclick="check(this)">Discount</a>
+                </p>
+                <p>
+                    <input type="checkbox" />
+                    <a  href="/products/?order=new" onclick="check(this)">Fresh Arrivals</a>
+                </p>
+                
+                
+            </div>
+
+        </div>
+        <div class="drop-down-menu">
+            <div class="drop-down-menu-head space_between" style="gap:10px">
+                <h4>Top Categories</h4>
+                
+            </div>
+            <div class="drop-down-menu-body">
+                {% for main , value in categories.items %}
+                    <p>
+                        <input type="checkbox" id="{{main}}"/>
+                        <a  href="{% url 'main-cats' value.slug %} ">{{main}}</a>
+                    </p>
+                    
+                {% endfor %}
+                
+                
+            </div>
+           
+            
+        </div>
+       
+      
+    
+</div>
+<script>
+    function check(e) {
+        e.parentElement.querySelector("input").checked = true;
+    }
+</script>

@@ -1,0 +1,45 @@
+
+{% extends 'registration/account.html'%} {% load static %}
+{% block Profile %} 
+{% if messages %}
+        {% for message in messages %}
+        <div id="message" class="message {{ message.tags }} show ">
+          <p>{{ message }}</p>
+        </div>
+        <script>
+          setTimeout(() => {
+            document.querySelector('#message').classList.remove('show')
+            document.querySelector('#message p').innerHTML = ""
+          }, 4000)
+        </script>
+
+        {% endfor %}
+        {% endif %}
+<div class="form card" >
+    
+    <div class="head">
+        <h2> Profile </h2>
+    </div>
+    <form method="POST" action="{% url 'profile' user.id %}"  >
+        {%csrf_token%}
+        <p>
+            <label for="id_cus_full_name"> full name:</label>
+            <input type="text" name="cus_full_name" value="{{user.customer.full_name}}" maxlength="50" required="" id="id_cus_full_name" dir="auto">
+           
+        </p>
+        <p>
+            <label for="id_cus_email"> Email :</label></p>
+            <input type="email" name="cus_email" value="{{user.email}}" required="" id="id_cus_email" dir="ltr">
+            
+        <p>
+            <label for="id_Customer_phone">Phone:</label></p>
+            <input type="number" name="Customer_phone" value="{{user.customer.Customer_phone}}" required="" id="id_Customer_phone" dir="ltr">
+            
+        <div class="alert"></div>
+        <button type="submit" class="submit-btn">Change</button>
+
+    </form>
+    
+   
+</div>
+{% endblock %} 

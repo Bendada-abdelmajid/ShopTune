@@ -1,0 +1,106 @@
+{% extends 'admin_pages/admin_page.html'%} {% load static %}
+{% block adminnav %}
+<div class="sidebar-button">
+    <span class="dashboard">Orders</span>
+  </div>
+  <div class="links f-start">
+      <a href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a><span>/</span><span class="see"> Orders</span>
+  </div>
+{% endblock %}
+{% block admincontent %}
+<style>
+    #orders {
+      color: #fda090 !important;
+    }
+  </style>
+
+
+<div class="tabel-header">
+    <form class="search-box space_between">
+        <input type="text" placeholder="Search..." name="q">
+        <button type="submit" class='fa fa-search btn-search'></button>
+      </form>
+    <div class="delete-btn" id="delete_icon"data-type="Orders">
+        <i class="fa fa-trash"></i>
+    </div>
+</div>
+<div class="scroll-x scrollbar box m-10">
+    <table id="order-table" class="table" >
+        <thead>
+            <tr>
+                <th id="selectAll"><i class="fa fa-list-check"></i></th>
+                <th>customer</th>
+                <th>Phone</th>
+                <th >price</th>
+                <th >Delvery</th>
+                <th >Date</th>
+                
+                <th class="none-2" > 
+                    <form >
+                        <select name="select" id="select" >
+                            <option value="All" {% if select == "All" %} selected {% endif %}>All</option>
+                            <option value="False" {% if select == "False" %} selected {% endif %}>complete</option>
+                            <option value="True" {% if select == "True" %} selected {% endif %}>Uncomplete</option>
+                        </select>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in qwery %}
+            <tr id="tr-{{o.id}}">
+              <td class="tr-link"><a href="{% url 'order-detail' o.id %}"></a></td>
+              <td class="click" style="width: 30px;">
+                <input type="checkbox" name="order" class="checkbox-btn" value="{{o.id}}" />
+                </td>
+              <td class="click no-wrap">{{o.customer.customer.full_name}}</td>
+              <td  class="click no-wrap" >{{o.customer.customer.Customer_phone}}</td>
+              <td  class="click no-wrap" >{{o.total_price}} DH</td>
+              <td  sclass="no-wrap" >{{o.ordedrOption}}</td>
+              <td  sclass="no-wrap" >{{o.oreder_date|date:'Y-m-j H:i'}}</td>
+              <td class="none-2 "   >
+                <button class="btn {% if o.complet %} success {% else %} warning {% endif %} ">
+                    {% if o.complet %}
+                    complete
+                    {% else %}
+                    Uncomplete
+                    {% endif %}
+                </button>
+                
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/delete.js'%}"></script>
+<script>
+    $(document).ready(function() {
+        $("#delete_btn").click(function() {
+          delete_items("{% url 'orders' %}","{{ csrf_token }}", 'order-table' )
+
+        })
+      })
+    const select= document.getElementById('select')
+    select.addEventListener('change', (e) => {
+        console.log();
+        select.parentElement.submit()
+    })
+      const orders = document.querySelectorAll("table tr");
+      orders.forEach((el) => {
+          el.addEventListener("click", (e) => {
+              if(e.target.classList.contains('click')){
+                  el.querySelector('.tr-link a').click()
+                  
+              }
+              
+          });
+      })
+   
+
+    </script>
+{% endblock script %}

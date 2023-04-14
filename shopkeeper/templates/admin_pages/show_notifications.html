@@ -1,0 +1,71 @@
+
+<div class="sales-box show box" id="box0">
+  
+  <div class="notif-list" >
+
+  </div>
+</div>
+
+  <script>
+    function getDtat(){
+      $.ajax({
+        url:"{% url 'get-notifs' %}",
+        dataTaype:'json',
+       
+        success:function(res){
+          _html=''
+          _num=0
+          _json=$.parseJSON(res.data)
+          console.log(_json);
+          if(_json.length > 0 ){
+          $.each(_json, function(index, d){
+            url="{% url 'order-detail' 1202 %}".replace('1202', d.pk)
+            _html+=`
+            <div class="tr" id="">
+              <p class="center tl"><a href="tel:${d.fields.phone}"><i class="fa fa-phone-alt"></i></a> </p>
+              <p class="center"><a href=${url}>${d.fields.customer}</a></p>
+              <p class="notif-date center date"> ${d.fields.oreder_date}</p>
+              <p class="close center" onclick="Has_seen(this, ${d.pk})"><i class="fa fa-times"></i></p>
+            </div>
+            `
+          })
+        }else {
+          _html=`<div class="vide center">
+        <i class="fa-solid fa-ban"></i>
+        <h4>no orders </h4>
+      </div>`
+        }
+         _num=_json.length
+          $('.notif-list').html(_html)
+          $('#notif-num').html(_num)
+          showDate()
+
+        }
+      })
+    }
+    function Has_seen(e,id){
+      notfi_num= document.getElementById('notif-num')
+      $.ajax({
+        method: "POST",
+        url: "{% url 'has-seen' 1202 %}".replace('1202', id),
+        data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (data) {
+        
+        e.parentElement.remove()
+        console.log(notfi_num.innerHTML);
+        notfi_num.innerHTML = parseInt(notfi_num.innerHTML) -1
+        },
+        error: function (response) {
+            console.log("error", response);
+        },
+    });
+    }
+    $(document).ready(function(){
+      getDtat()
+      //setInterval(() => {
+      // getDtat()
+      //}, 5000) 
+    })
+  </script>

@@ -1,0 +1,48 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+{% block admincontent %} 
+<style>
+  #add {
+    color: #fda090 !important;
+  }
+</style>
+<div class="{% if not edit %} grid {% endif %}">
+    <div class="forms">
+        {% block forms %} 
+        {% endblock %}
+    </div>
+    {% if not edit %}
+    <div class="add-page">
+   
+       
+        
+        <a href="{% url 'add-pruduct' %}" id="add_pruduct" class="box space_between" style="--b:#cce5ff;">
+          <h3 class="box-topic">Product</h3>
+          <i class='fa fa-plus cart'></i>
+        </a>
+        <a href="{% url 'add-main-category' %}" id="add_main_cat" class="box space_between" style="--b:#cce5ff;">
+          <h3 class="box-topic">add Main Categorie</h3>
+          <i class='fa fa-plus cart'></i>
+        </a>
+        <a href="{% url 'add-sub-category' %}" id="add_sub_cat" class="box space_between" style="--b:#cce5ff;">
+          <h3 class="box-topic">add sub Categorie</h3>
+          <i class='fa fa-plus cart'></i>
+        </a>
+        <a href="{% url 'add-category' %}"id="add_category" class="box space_between" style="--b:#cce5ff;">
+          <h3 class="box-topic">Add Categorie</h3>
+          <i class='fa fa-plus cart'></i>
+        </a>
+        <a href="{% url 'add-color' %}"id="add_color" class="box space_between" style="--b:#cce5ff;">
+          <h3 class="box-topic">Add Color</h3>
+          <i class='fa fa-plus cart'></i>
+        </a>
+      </div> 
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
+{% block script %}
+
+{% endblock %}

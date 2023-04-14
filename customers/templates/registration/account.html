@@ -1,0 +1,58 @@
+{% extends 'base.html'%} {% load static %}
+{% block sidebarContent %}
+<div class="side-bar">
+  <div class="profile ">
+    <div class="icon center">
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M5 20h14v2H5v-2zm7-2a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-2a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path></g></svg>
+    </div>
+    <p> Wellcom </p>
+    <h4 id="custemer_name"> {{user.customer.full_name}}</h4>
+  </div>
+
+
+
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="{% url 'profile' user.id %}" class="f-start">
+        <i class="fa fa-user-cog"></i>
+        <span class="links_name">Profile</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a href="{% url 'customer_orders' %}" class="f-start">
+        <i class='fa fa-list-ul'></i>
+        <span class="links_name">Orders</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'customer_saveds' %}" class="f-start">
+        <i class='far fa-heart'></i>
+        <span class="links_name">Wish list</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'changeCustomer-Password' %}" class="f-start">
+        <i class='fa fa-lock'></i>
+        <span class="links_name"> Change Password</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'logout_user' %}" class="f-start">
+
+        <i class='fa fa-door-open'></i>
+        <span class="links_name">logout</span>
+      </a>
+    </li>
+  </ul>
+</div>
+{% endblock sidebarContent %}
+{% block content %}
+
+<div class="acount">
+  {% block Profile %}
+  {% endblock Profile %}
+</div>
+
+{% endblock content %}

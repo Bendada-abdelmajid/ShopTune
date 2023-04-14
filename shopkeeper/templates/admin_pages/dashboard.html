@@ -1,0 +1,247 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+
+{% block admincontent %}
+<style>
+  #admin_page {
+    color: #fda090 !important;
+  }
+</style>
+<div class="grid-2">
+ 
+  <div class="sales-boxs ">
+    {% include 'admin_pages/chart.html' %}
+    <div class="head center">
+      <div class="center box-btn link  active " data-id="box0">
+        <p class="cart two" id="notif-num">0</p>
+        <h3>New</h3>
+        
+      </div>
+      <div class="center  box-btn link" data-id="box1">
+        <p class="cart" id="nocomplet-num">{{orders.count}}</p>
+        <h3>Complete</h3>
+      
+      </div>
+      <div class="center box-btn link" data-id="box3">
+        <p class="cart four" id="nocomplet-num">{{products.count}}</p>
+        <h3>Out of stock</h3>
+        
+      </div>
+    </div>
+    <div class="sales-boxs-content">
+      {% include 'admin_pages/show_notifications.html' %}
+    <div class="sales-box box" id="box1">
+      {% if orders %}
+      {% for o in orders %}
+        <div class="space_between" id="tr-{{o.id}}">
+          <div class="f-start">
+          <p class="center tl"><a href="tel:{{.customer.customer.Customer_phone}}"><i class="fa fa-phone-alt"></i></a></p>
+          <p class="center"> <a href="{% url 'order-detail' o.id %}">{{o.customer.customer.full_name}}</a></p>
+          <p class="center"> <a href="{% url 'order-detail' o.id %}">{{o.products.count}} products</a></p>
+          <p class="center date" >{{o.oreder_date|date:'Y-m-j H:i'}}</p>
+        </div>
+          <p class="center btn" onclick="Has_complet(this, '{{o.id}}')">complete</p>
+        </div>
+      {% endfor %}
+      {% else %}
+      <div class="vide center">
+        <i class="fa-solid fa-ban"></i>
+        <h4>no orders to complete</h4>
+      </div>
+
+      {% endif %}
+    </div>
+    
+  
+  
+    <div class="sales-box box" id="box3">
+      {% if products %}
+      {% for prod in products %}
+        <div class="space_between" >
+          <div class="f-start">
+          <div class="center" > <img style="height: 55px;" src="{{prod.image.all.0.image.url}}" alt="" width="65" height="55"></div>
+          <p class="center "><a href="{% url 'edit-product' prod.id %}">{{prod.title}}</a></p>
+          
+          </div>
+          <p class="center right"data-stus="{{prod.out_of_stock}}" onclick="stockTogel(this, '{{prod.id}}')">
+          <span class="b btn">add</span>
+        </p>
+          
+        </div>
+      
+      {% endfor %}
+      {% else %}
+      <div class="vide center">
+        <i class="fa-solid fa-ban"></i>
+        <h4>no product found</h4>
+      </div>
+
+      {% endif %}
+   
+    </div>
+    </div>
+  
+  </div>
+  <div class="cal-icon icon-btn">
+    <i class="fa fa-calendar-alt"></i>
+  </div>
+  <div class="cal-section">
+    <div class="close-cal">&times;</div>
+    <div class="cal center">
+      <div class="arrow-btns" data-num="{{month}}" data-year="{{year}}" >
+        <div class="l-btn a-btn center" id="prev" ><i class="fa fa-angle-left"></i></div>
+        <div class="r-btn a-btn center" id="next"><i class="fa fa-angle-right"></i></div>
+      </div>
+      <div id="calender" class="table">
+        {{cal|safe}}
+      </div>
+    </div>
+    {% include 'admin_pages/todoList.html' %}
+  </div>
+</div>
+<script>
+  const searchForm= document.getElementById('search-form')
+
+searchForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const q= document.getElementById('input-search').value
+  const select= document.getElementById('select-search')
+  if(select.value == "p"){
+    document.location.assign(`/shopkeeper/products?q=${q}`)
+  } else {
+    document.location.assign(`/shopkeeper/orders?q=${q}`)
+  }
+})
+
+  const cal=document.querySelector('.cal-section')
+  const calBtn=document.querySelector('.cal-icon')
+  const closeCal =document.querySelector(".close-cal");
+  calBtn.addEventListener("click",() =>{
+    cal.classList.add("active");
+  })
+  closeCal.addEventListener("click",() =>{
+    cal.classList.remove("active");
+  })
+  const cal_btns=document.querySelectorAll('.a-btn')
+  function shownowDate(){
+    const nowdate=new Date()
+    console.log(nowdate.getMonth);
+    const month= document.querySelector('.arrow-btns').dataset.num
+    const year= document.querySelector('.arrow-btns').dataset.year
+    if (month == nowdate.getMonth() + 1 && year == nowdate.getFullYear()){
+      document.querySelectorAll('.cal td').forEach((el) => {
+        console.log(el.innerHTML + '=> '+  nowdate.getDate());
+
+        if(parseInt(el.innerHTML) == nowdate.getDate()) {
+          el.classList.add('active')
+        }
+      })
+    }
+  }
+  shownowDate()
+  const Days=document.querySelectorAll('.cal td');
+  Days.forEach((el) => {
+    el.addEventListener('click', () => {
+      Days.forEach((el) => {
+        el.classList.remove('click')
+      })
+      el.classList.add('click')
+    })
+  })
+  cal_btns.forEach((btn) => {
+    btn.addEventListener('click',() => {
+     
+      if (btn.id =="next"){
+        btn.parentElement.dataset.num= parseInt( btn.parentElement.dataset.num) + 1
+      } else {
+        btn.parentElement.dataset.num=parseInt( btn.parentElement.dataset.num) - 1
+      }
+      if(btn.parentElement.dataset.num > 12) {
+        btn.parentElement.dataset.num=1
+        btn.parentElement.dataset.year=parseInt( btn.parentElement.dataset.year) + 1
+      }else if (btn.parentElement.dataset.num < 1) {
+        btn.parentElement.dataset.num=12
+        btn.parentElement.dataset.year=parseInt( btn.parentElement.dataset.year) - 1
+      }
+      
+      $.ajax({
+        method: "POST",
+        url: "{% url 'admin-page'%}",
+        data: {
+            direction:btn.id,
+            year:btn.parentElement.dataset.year,
+            mun:btn.parentElement.dataset.num,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (data) {
+          document.getElementById('calender').innerHTML=data.cal
+          shownowDate()
+        },
+        error: function (response) {
+            console.log("error", response);
+        },
+    });
+    }) 
+  })
+
+
+
+  const links=document.querySelectorAll('.sales-boxs .link')
+  links.forEach((e) => {
+    e.addEventListener('click',() => {
+      console.log(e.dataset.id);
+      document.querySelector('.sales-boxs .link.active').classList.remove('active')
+      document.querySelector('.sales-box.show').classList.remove('show')
+      document.getElementById( e.dataset.id).classList.add('show')
+      e.classList.add('active')
+    }) 
+  })
+  function Has_complet(e,id){
+    nocomplet_num= document.getElementById('nocomplet-num')
+    $.ajax({
+      method: "POST",
+      url: "{% url 'has-complet' 1202 %}".replace('1202', id),
+      data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+      },
+      success: function (data) {
+      e.innerHTML='إكتمل'
+      setTimeout(() => {
+        e.parentElement.remove()
+      },2000)
+      
+ 
+      nocomplet_num.innerHTML = parseInt(nocomplet_num.innerHTML) -1
+      },
+      error: function (response) {
+          console.log("error", response);
+      },
+  });
+  }
+  function stockTogel(e, id){
+    let state=e.dataset.stus
+    console.log(state);
+    $.ajax({
+        method: "POST",
+        url: "{% url 'change-state' 1200 %}".replace('1200', id),
+        data: {
+            'state':state,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (data) {
+            console.log('hi');
+            if(state == 'False') {
+                e.innerHTML='<span class="g btn">Add</span>'
+                e.dataset.stus = 'True'              
+            } else {
+                e.innerHTML='<span class="b btn success">added with success</span>'
+                e.dataset.stus = 'False'  
+            }
+        },
+        error: function (response) {
+            console.log("error", response);
+        },
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+<div class="box todo" >
+    <form class="search-box" id="add-todo">
+        <input type="text" placeholder="Add Event..">
+        <button type="submit"><i class='fa fa-plus btn-search'></i></button>
+    </form>
+    <ul id="tado-list">
+        {%for t in todos %}
+        <li class="space_between {% if t.is_today %} now {% endif %}" >
+            <div>
+                <p>{{t.todo}}</p> 
+                
+                <p class="date"><i class="fas fa-history"></i>
+                    {% if t.is_today %}
+                     اليوم
+                    {% else %}
+                    {{t.todo_date|date:'Y-m-j'}} 
+                    {% endif %}
+                    </p>
+            </div>
+            <div class="delete" onclick="deleteTodo(this, '{{t.id}}')">
+                <i class="fa fa-trash"></i>
+            </div>
+        </li>
+        {% endfor %}
+       
+    </ul>
+</div>
+
+<script>
+    const todoapp=document.getElementById('add-todo')
+    todoapp.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const newdate=new Date()
+        let date=''
+        if(document.querySelector('.cal td.click')) {
+            const month=document.querySelector('.arrow-btns').dataset.num
+            const year= document.querySelector('.arrow-btns').dataset.year
+            date= `${year}-${month}-${parseInt(document.querySelector('.cal td.click').innerHTML)} 12:00`
+        } else {
+            date=`${newdate.getFullYear()}-${(newdate.getMonth() +1)}-${newdate.getDate()} 12:00`
+            
+        }
+        console.log(date);
+        $.ajax({
+          method: "POST",
+          url: "{% url 'add-todo' %}",
+          data: {
+              'todo':todoapp.querySelector('input').value,
+              'date':date,
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+          },
+          success: function (data) {
+            todoapp.querySelector('input').value=""
+            document.getElementById('tado-list').innerHTML+=`
+            <li class="space_between">
+                <div>
+                    <p>${data.todo}</p> 
+                    <p class="date"><i class="fas fa-history"></i> ${data.date.slice(0, data.date.indexOf("12:00"))} </p>
+                </div>
+                <div class="delete" onclick="deleteTodo(this, ${data.id})">
+                    <i class="fa fa-trash"></i>
+                </div>
+            </li>
+            `
+          console.log(data);
+          },
+          error: function (response) {
+              console.log("error", response);
+          },
+      });
+    })
+    function deleteTodo(e,id){
+        console.log(e);
+        $.ajax({
+          method: "POST",
+          url: "{% url 'delete-todo' 1202 %}".replace('1202', id),
+          data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+          },
+          success: function (data) {
+          e.parentElement.remove()
+          },
+          error: function (response) {
+              console.log("error", response);
+          },
+      });
+    }
+</script>

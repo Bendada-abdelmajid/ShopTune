@@ -1,0 +1,43 @@
+{% load static %}
+<section class="splide new main" aria-labelledby="carousel-heading">
+    <div class="title">New seazon</div>
+  
+    <div class="splide__track">
+          <ul class="splide__list">
+            {% for prod in new_prods %}
+           
+              <li class="splide__slide" style="--img: url({{ prod.image.all.0.image.url}});" >
+              
+                    <img class="splide-img" src="{{prod.image.all.0.image.url}}"/>
+                    
+                    
+                
+                
+                <div class="content">
+                    
+                        
+                    <h2>{{prod.title}}</h2>
+                    
+                    <p class="f-start">From  <span class="p">${{prod.price}}</span> </p>
+       
+                    <a href="#" class="btn"><span>Puy Now <i class="fa fa-fire"></i></span></a>
+                </div>
+    
+              </li>
+              {% endfor %}
+              
+          </ul>
+    </div>
+  </section>
+
+
+<script>
+new Splide( '.new' , {
+        type   : 'loop',
+}).mount( )
+
+setInterval(() => {
+    document.querySelector(".new .splide__arrow--next").click()
+   
+}, 4000);
+</script>

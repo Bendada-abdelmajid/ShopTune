@@ -1,0 +1,39 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+{% block adminnav %}
+{% endblock %}
+{% block admincontent %} 
+<style>
+  #setting {
+    color: #fda090 !important;
+  }
+</style>
+<div class="grid">
+    <div class="forms">
+        {% block profileforms %} 
+        {% endblock %}
+    </div>
+    <div class="add-page" >
+        <a href="{% url 'profiel' user.id %}" class="box space_between" style="--b:#C0F2D8;" id="Profiel">
+          <h3 class="box-topic">Profile</h3>
+          <i class='fa fa-edit cart two'></i>
+        </a>
+        <a href="{% url 'change-password' %}" class="box space_between" style="--b:#C0F2D8;" id="change_password">
+          <h3 class="box-topic">Change Password </h3>
+          <i class='fa fa-edit cart two '></i>
+        </a>
+       
+      </div> 
+
+</div>
+<script>
+    const paragraphs=document.querySelectorAll('.form-box p')
+    paragraphs.forEach((p) => {
+        console.log(p);
+        if(p.querySelector('label')){
+            p.appendChild(p.querySelector('label'))
+        }
+        
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,270 @@
+{% load static %}
+<header class="f-start">
+    <div class="menu-btn center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16" fill="currentColor"><rect width="30" height="1.5"></rect><rect y="7" width="20" height="1.5"></rect><rect y="14" width="30" height="1.5"></rect></svg>
+    </div>
+
+    <a class="logo f-start" href="{% url 'home' %}">
+        ShopTune
+    </a>
+
+    <nav class="nav-bar">
+        <div class="links f-start" style="gap: 20px;">
+            <a href="{% url 'home' %}"> Home</a>
+            <div class="sub-menu-container">
+                <div class="f-start" style="gap: 10px; cursor: pointer;">Discover <i class="fas fa-angle-down"></i></div>
+                <div class="sub-menu" id="sub_menu">
+                    <ul class="sub-menu-nav" id="sub_menu_nav">
+
+
+                    </ul>
+                    <div class="sub-menu-list" id="sub_menu_list">
+
+
+                    </div>
+                </div>
+            </div>
+
+            <a href="{% url 'all-products'%}?order=new">New items</a>
+        </div>
+        <div class="right f-start">
+            <div class="search-icon center" id="search-btn">
+                <svg stroke="currentColor" fill="none" stroke-width="1.3" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+            <div class="search-container" id="search_cont">
+                <form class="search-box" action="{% url 'all-products' %}" autocomplete="off" id="search_form">
+                    <div class="close-search">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
+                            width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="none" d="M0 0h24v24H0V0z" opacity=".87"></path>
+                            <path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"></path>
+                        </svg>
+                    </div>
+                    <svg class="search-btn" stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1"
+                        id="search" x="0px" y="0px" viewBox="0 0 24 24" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M20.031,20.79c0.46,0.46,1.17-0.25,0.71-0.7l-3.75-3.76c1.27-1.41,2.04-3.27,2.04-5.31
+                    c0-4.39-3.57-7.96-7.96-7.96s-7.96,3.57-7.96,7.96c0,4.39,3.57,7.96,7.96,7.96c1.98,0,3.81-0.73,5.21-1.94L20.031,20.79z
+                     M4.11,11.02c0-3.84,3.13-6.96,6.96-6.96c3.84,0,6.96,3.12,6.96,6.96c0,3.84-3.12,6.96-6.96,6.96C7.24,17.98,4.11,14.86,4.11,11.02
+                    z"></path>
+                        </g>
+                    </svg>
+
+
+                    <input type="text" name="search" id="search_input" placeholder="Search for your product" />
+                    <div id="result" class="splide"></div>
+                    <div id="suggestions">
+                        <div>
+                            <h4>Top categories</h4>
+                            <div class="btns f-start">
+                                {% for main , value in categories.items %}
+
+                                <a href="{% url 'main-cats' value.slug %} " class="a-btn">
+
+                                    {{main}}
+
+                                </a>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Best Tags</h4>
+                            <div class="btns f-start">
+                                <a href="{% url 'all-products'%}?order=popular" class="a-btn">Popular Products</a>
+
+                                <a href="{% url 'all-products'%}?order=discount" class="a-btn">Discount</a>
+                                <a href="{% url 'all-products'%}?order=new" class="a-btn">Fresh Arrivals</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="search-overlay" class="overlay"></div>
+            </div>
+
+            {% if request.user.is_authenticated  and not request.user.is_superuser %}
+            <div id="user-menu" class="user nav-btn f-start">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
+                    width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path
+                            d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z">
+                        </path>
+                    </g>
+                </svg> <i class="fas fa-angle-down"></i>
+                <div class="drop-menu">
+                    <ul class="nav-links">
+                        <li class="nav-item">
+                            <a href="{% url 'profile' user.id %}" class="f-start">
+                                <i class="fa fa-user-cog"></i>
+                                <span class="links_name">Profile</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="{% url 'customer_orders' %}" class="f-start">
+                                <i class='fa fa-list-ul'></i>
+                                <span class="links_name">Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'customer_saveds' %}" class="f-start">
+                                <i class='far fa-heart'></i>
+                                <span class="links_name">Wish list</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'changeCustomer-Password' %}" class="f-start">
+                                <i class='fa fa-lock'></i>
+                                <span class="links_name"> Change Password</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'logout_user' %}" class="f-start">
+
+                                <i class='fa fa-door-open'></i>
+                                <span class="links_name">logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                // user menu 
+                const user_menu = document.getElementById('user-menu')
+                user_menu.addEventListener("touchstart", (e) => {
+                    user_menu.classList.toggle("active")
+                })
+
+            </script>
+            {% elif request.user.is_authenticated  and  request.user.is_superuser %}
+
+            <a class="nav-btn center" href="{% url 'admin-page' %}"><i class="fa fa-user"></i></a>
+            {% else %}
+            <div class="login-btn" data-id="0" onclick="showindow(0)">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
+                    width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path
+                            d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z">
+                        </path>
+                    </g>
+                </svg>
+                <span>login</span>
+            </div>
+            {% endif %}
+
+
+            <div class="shoping-btn center">
+                <svg x="0px" y="0px" viewBox="0 0 56.7 56.2" xml:space="preserve">
+                    <path class="st0"
+                        d="M45.3,19h-4.9h-7.3h-9.7h-7.3h-4.8v32c0,0.5,0.4,0.8,0.8,0.8h32.3c0.4,0,0.8-0.4,0.8-0.8V19z M38,9.9l-3.2-3.8
+                        v11.3H38V9.9z M23.5,7.5v9.9h9.7V7.5H23.5z M18.6,9.9v7.5h3.2V6.1L18.6,9.9z M44.5,53.6H12.2c-1.3,0-2.4-1.1-2.4-2.5V18.2
+                        c0-0.5,0.4-0.8,0.8-0.8H17V9.2l6.5-6.6h9.7l6.5,6.6v8.2h6.5c0.4,0,0.8,0.4,0.8,0.8v32.9C46.9,52.5,45.9,53.6,44.5,53.6z">
+                    </path>
+                </svg>
+                {% with total_qty=basket|length %}
+                <p class="count" id="shoping-btn-qty">
+                    {% if total_qty > 0 %}
+                    {{ total_qty }}
+                    {% else %}
+                    0
+                    {% endif %}
+                </p>
+                {% endwith %}
+            </div>
+        </div>
+
+
+
+    </nav>
+    <div class="menu-overlay"></div>
+    <div class="mobile-menu">
+        <div class="menu-title space_between">
+            <h4>Categories</h4>
+            <div class="close center"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                        d="M368 368L144 144m224 0L144 368"></path>
+                </svg></div>
+        </div>
+        {% for main, value in categories.items %}
+
+        <div class="cat-menu">
+            <div class="menu-head space_between">
+                <p>{{main}}</p>
+                <div class="plus-btn"><span></span><span></span></div>
+            </div>
+            <div class="cat-menu-body ">
+                {% for sub, l in value.list.items %}
+                <a class="menu-body-head" href="{{l.link}}">{{sub}}</a>
+
+                <div class="cats-list">
+                    {% for cat in l.list %}
+                    <a class="item" href="{{cat.link}}">{{cat.name}}</a>
+
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</header>
+
+
+
+{{categories|json_script:"cats"}}
+<script>
+    const cats = JSON.parse(document.getElementById("cats").textContent)
+    const subMenu = document.getElementById("sub_menu")
+    const subMenuNav = document.getElementById("sub_menu_nav")
+    const subMenuList = document.getElementById("sub_menu_list")
+
+
+    Object.keys(cats).forEach((el) => {
+
+        const link = "{% url 'main-cats' 1254251 %}".replace("1254251", cats[el].slug)
+        subMenuNav.innerHTML += `<li class="f-start sub-menu-nav-link"><a href="${link}">${el}</a></li>`
+    })
+    console.log(cats[Object.keys(cats)[0]].list)
+    showLinks(Object.keys(cats)[0])
+    document.querySelector("#sub_menu_nav .sub-menu-nav-link:first-child").classList.add("active")
+    document.querySelectorAll("#sub_menu_nav .sub-menu-nav-link").forEach((el, index) => {
+        el.addEventListener("mouseover", () => {
+            document.querySelectorAll("#sub_menu_nav .sub-menu-nav-link").forEach(el => {
+                el.classList.remove("active")
+            })
+            el.classList.add("active")
+            showLinks(Object.keys(cats)[index])
+        })
+    })
+
+    function showLinks(activeLink) {
+        console.log(cats[activeLink].list)
+        subMenuList.innerHTML = ""
+        for (let key in cats[activeLink].list) {
+            const col = document.createElement("div")
+            col.classList.add("col")
+            col.innerHTML += `<a class="title" href="${cats[activeLink].list[key].link}">${key}</a>`
+            const list = document.createElement("div")
+            list.classList.add("links")
+            cats[activeLink].list[key].list.forEach(cat => {
+                list.innerHTML += `<a class="link" href="${cat.link}">${cat.name}</a>`
+            })
+
+            col.appendChild(list)
+            subMenuList.appendChild(col)
+        }
+    }
+
+</script>

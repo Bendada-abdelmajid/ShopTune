@@ -1,0 +1,144 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+{% block adminnav %}
+<div class="sidebar-button">
+    <span class="dashboard">{{order.customer.customer.full_name}}}</span>
+</div>
+<div class="links f-start">
+    <a href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a><span>/</span><a href="{% url 'orders' %}"> Orders</a> /<span
+        class="see"> {{order.customer.customer.full_name}}}</span>
+</div>
+{% endblock %}
+{% block admincontent %}
+<style>
+    #orders {
+        color: #fda090 !important;
+    }
+
+</style>
+<div class="order-detail">
+
+
+
+    <div class="box ">
+        <div class="card-title" >
+            Order Details
+        </div>
+        {% for item in order.products.all %}
+        {% with prod=item.product %}
+        <div class="card {% if forloop.first  %} none {% endif %}" >
+        <img src="{{prod.image.all.0.image.url}}" alt="">
+        <div>
+            <h4>{{prod.title}}</h4>
+            <table class="table">
+                <tr>
+                    <td class="no-wrap">color</td>
+                    <td >
+                        {% if item.color%}
+                        <span class="clr" style="--i:{{item.color}};"></span>
+                        {% else %}
+                        <span class="empty-val"> &times;</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="no-wrap">Size</td>
+                    <td >
+                        {% if item.size %}
+                        {{item.size}}
+                        {% else %}
+                        <span class="empty-val"> &times;</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Price : </td>
+                    <td>${{prod.price}}</td>
+                </tr>
+                <tr>
+                    <td class="no-wrap">Qua</td>
+                    <td>{{item.qty}}</td>
+                </tr>
+                <tr class="vide"></tr>
+
+                <tr class="br"></tr>
+                <tr>
+                    <td>Sub total : </td>
+                    <td>${{item.price}}</td>
+
+                </tr>
+                <tr>
+                    <td>Delivery : </td>
+                    <td>${{order.ordedrOption.price}}</td>
+
+                </tr>
+                <tr>
+                    <td>Total :</td>
+                    <td>${{order.total_price}}</td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+        {% endwith %}
+        {% endfor %}
+
+    </div>
+    <div class="customer-detail space_between box ">
+        <div >
+        <div class="card-title">
+           Customer
+        </div>
+        <h4>{{order.customer.customer.full_name}} </h4>
+        
+        
+        <table class="table">
+
+       
+        <tr>
+            <td>phone : </td>
+            <td><a href="tel:{{order.phone}}">{{order.customer.customer.Customer_phone}}</a></td>
+        </tr>
+        <tr>
+            <td>email : </td>
+            <td><a href="" class="email"> {{order.customer.email}}</a></td>
+        </tr>
+        <tr>
+            <td>orderd At : </td>  <td> {{order.oreder_date|date:'Y-m-j H:i'}}</td>
+        </tr>
+        <tr>
+            <td>Delevery : </td>
+            <td>{{order.ordedrOption}}</td>
+        </tr>
+        <tr>
+            <td>Total Price : </td>
+            <td>{{order.total_price}} DH</td>
+        </tr>
+        <tr>
+            <td>State :</td>
+            <td>
+                <button class="btn {% if order.complet %} success {% else %} warning {% endif %}">
+                    {% if order.complet %}
+                    completed
+                    {% else %}
+                    un complete
+                    {% endif %}
+                </button>
+            </td>
+            
+        </tr>
+        </table>
+
+        </div>
+        <div class="btns center" >
+
+            {% if not order.complet %}
+
+            <a href="{% url 'has-complet' order.id %}" class="btn warning f-start">complete</a>
+            {% endif %}
+            <a href="{% url 'delete-order' order.id %} " class="btn danger"> Delete </a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

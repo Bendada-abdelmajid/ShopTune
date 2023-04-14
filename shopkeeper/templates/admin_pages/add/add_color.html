@@ -1,0 +1,22 @@
+{% extends 'admin_pages/add.html'%}
+{% load static %}
+{% block forms %} 
+<style>
+    #add_color {
+      background: #fda090 !important;
+    }
+  </style>
+    
+    <div class="form box ">
+      <h1 class="form-title">Add Color</h1>
+        <form method=POST >
+            <div class="form-content">
+                {% csrf_token %}
+                {{form.as_p}}
+                {{form.media}}
+                
+            </div>
+            <button type="submit" class="btn">add</button>
+        </form>
+    </div>
+    {% endblock %}

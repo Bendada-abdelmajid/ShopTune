@@ -1,0 +1,101 @@
+{% extends 'admin_pages/admin_page.html'%}
+{% load static %}
+{% block adminnav %}
+    <div class="sidebar-button">
+      <span class="dashboard">{{prod.title}}</span>
+    </div>
+    <div class="links">
+        <a href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a>/<a href="{% url 'products' %}">بضائع</a>/<span class="see"> {{prod.title}} </span>
+    </div>
+{% endblock %}
+{% block admincontent %} 
+<style>
+  
+    #products {
+      color: #fda090 !important;
+    }
+</style>
+<div class="form">
+    <form method=POST enctype="multipart/form-data" id="form-Post">
+        <div class="grid">
+            <div class="form-content box" style="margin-bottom: 15px;">
+                {% csrf_token %}
+                {{form.as_p}}
+                {{form.media}}
+            </div>
+            <div class="galery_card box">
+                <div class="add-btn">
+                    <i class="fa fa-camera"></i>
+                </div>
+                <div class="card_image" id="img-container">
+                    <div class="img">
+                        <img class="cover" id="featured" src="{{prod.image.all.0.image.url}}" alt="model">
+                    </div>
+                </div>
+                {% if  prod.image.count > 1%}
+                <ul class="card_imgs" style="display: block;">
+                    {% for img in prod.image.all %}
+                    <li>
+                        <img class="cover" src="{{img.image.url}}" alt="model">
+                    </li>
+
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="btns center">
+            <button type="submit" class="btn" style="--c:linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);">edit</button>
+            <button type="button" class="btn r" >delete</button>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+    document.getElementById('id_color').parentElement.classList.add("input")
+    const form_content = document.querySelector('.form-content')
+    const color_div= document.createElement('div')
+    color_div.classList.add('size_div')
+    color_div.appendChild(document.getElementById('id_color').parentElement)
+    form_content.insertBefore(color_div, document.getElementById('id_image').parentElement)
+    document.getElementById('id_color').parentElement.classList.add("size_p")
+    for (let i = 2; i < 5; i++) {
+        document.getElementById('id_color' + i).parentElement.classList.add("size_p", "hide")
+        color_div.appendChild(document.getElementById('id_color' + i).parentElement)
+    }
+
+    const size_Div= document.createElement('div')
+    size_Div.classList.add('size_div')
+ 
+    size_Div.appendChild(document.getElementById('id_size').parentElement)
+    form_content.insertBefore(size_Div, document.getElementById('id_image').parentElement)
+    document.getElementById('id_size').parentElement.classList.add("size_p")
+    for (let i = 2; i < 5; i++) {
+       
+        document.getElementById('id_size' + i).parentElement.classList.add("size_p", "hide")
+        size_Div.appendChild(document.getElementById('id_size' + i).parentElement)
+    }
+    const imageInput = document.getElementById('id_image')
+    imageInput.parentElement.style.display="none"
+
+    const addImageBtn = document.querySelector('.add-btn')
+    const main_img = document.querySelector('.galery_card .card_image img')
+    const list_imgs = document.querySelector('.galery_card .card_imgs')
+    addImageBtn.addEventListener('click', (e) => {
+        imageInput.click()
+
+    })
+    imageInput.addEventListener("change", (e) => {
+        const imgs = e.target.files;
+        console.log(imgs);
+        main_img.src = URL.createObjectURL(imgs[0])
+        list_imgs.innerHTML = ""
+        for (let i = 0; i < imgs.length; i++) {
+            const url = URL.createObjectURL(imgs[i]);
+            list_imgs.innerHTML += ` <li>
+                <img class="cover" src="${url}" alt="model">
+            </li>`
+        }
+    });
+</script>
+{% endblock %}

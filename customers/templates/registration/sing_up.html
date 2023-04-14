@@ -1,0 +1,159 @@
+<div class="form-box" id="signUP-form-cntainer">
+  <h2>Welcome Back</h2>
+  <p>Create your account. It's totally free.</p>
+  <form method="POST" id="signUP-form">
+    {% csrf_token %}
+    <p>
+      <input type="text" name="full_name" maxlength="150" required id="id_full_name" dir="auto"/>
+      <label for="id_full_name">Full Name :</label>
+    </p>
+    <p>
+      <input type="email" name="email" id="id_sign_email" required/>
+      <label for="id_sign_email">Email :</label>
+    </p>
+    <p>
+      <input type="password" name="password" required id="id_password"/>
+      <label for="id_password1">Password :</label>
+      <i class="fa fa-eye eye right" onclick="seepassWord(this)"></i>
+    </p>
+
+    <p>
+      <input type="number" name="userphone" required="" id="id_Customer_phone"/>
+      <label for="id_Customer_phone">Tel :</label>
+    </p>
+
+    <div class="alert">we sent you emil</div>
+
+    <button style="margin-top: 30px;" type="submit" id="signUP-btn" class="btn">Sign In</button>
+
+
+  </form>
+
+
+
+</div>
+
+<script>
+
+  
+  
+  let full_name = ""
+  let email = ""
+  let password = ""
+  let userphone = ""
+  const S_mess = document.querySelector(' #signUP-form .alert')
+  $(document).on("submit", "#signUP-form", function (e) {
+    console.log('yes');
+    e.preventDefault();
+    loadere.classList.add('show')
+    full_name = $("#signUP-form #id_full_name").val()
+    email = $("#id_sign_email").val()
+    password = $("#signUP-form #id_password").val()
+    userphone = $("#signUP-form #id_Customer_phone").val()
+    $.ajax({
+      type: "POST",
+      url: '{% url "sing-up" %}',
+      data: {
+        done: 'no',
+        full_name: $("#id_full_name").val(),
+        email: $("#id_sign_email").val(),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        
+        message(json.message, json.type , S_mess)
+        if(json.type =="error") {
+          loadere.classList.remove('show')
+        }
+        if (json.type == "success") {
+          loadere.classList.remove('show')
+          document.querySelector('.register-model ').innerHTML = `<form method="POST" id="verfai-email" class="code-form" style= 'margin-top: 0;'>
+            <h6>  We have sent a verification code to your email</h6>
+             <h4 style="color: cadetblue;">${email}</h4> 
+                <h4>Enter verification codes</h4>
+                
+                <div class="code-container">
+                  <input type="number" class="code" placeholder="0" min="0" max="9" />
+                  <input type="number" class="code" placeholder="0" min="0" max="9" />
+                  <input type="number" class="code" placeholder="0" min="0" max="9" />
+                  <input type="number" class="code" placeholder="0" min="0" max="9" />
+                </div>
+                
+                <div class="alert" ></div>
+                <button type="button"  onclick="verfai(this)" class="btn">confirm</button>
+            </form>`
+            document.querySelector('.register-model').style= 'padding: 20px;display: block; height: fit-content;'
+            const codeinputs = document.querySelectorAll('.code');
+
+            codeinputs[0].focus();
+        
+            codeinputs.forEach((code, idx) => {
+              code.addEventListener('keydown', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                  codeinputs[idx].value = '';
+                  setTimeout(() => {
+                    if (codeinputs[idx + 1]) {
+                      codeinputs[idx + 1].focus();
+                    }
+                  }, 10);
+                } else if (e.key === 'Backspace') {
+                  setTimeout(() => {
+                    if (codeinputs[idx - 1]) {
+                      codeinputs[idx - 1].focus();
+                    }
+                  }, 10);
+                }
+              });
+            });
+        }
+
+      },
+      error: function (xhr, errmsg, err) {
+        
+       message('There is a problem, please try again.', 'error', S_mess)
+      },
+    });
+  });
+
+  function verfai(e) {
+    loadere.classList.add('show')
+    const V_mess = document.querySelector(' #verfai-email .alert')
+    const codeinputs = e.parentElement.querySelectorAll('.code');
+      let code="";
+      console.log(codeinputs)
+      codeinputs.forEach((num) => {
+        code+=num.value;
+        console.log(code);
+      })
+    $.ajax({
+      type: "POST",
+      url: '{% url "sing-up" %}',
+      data: {
+        done: 'yes',
+        vCode: code,
+        full_name: full_name,
+        email: email,
+        password: password,
+        userphone: userphone,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        message(json.message, json.type, V_mess)
+       
+        if (json.type == "success") {
+          loadere.classList.remove('show')
+         document.location.reload()
+        } else {
+          loadere.classList.remove('show')
+        }
+
+      },
+      error: function (xhr, errmsg, err) {
+        message('There is a problem, please try again.', 'error', V_mess)
+      },
+    });
+    
+  }
+</script>

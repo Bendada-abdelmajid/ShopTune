@@ -1,0 +1,78 @@
+<div class="grid mt">
+  {% for prod in products %}
+  <div class="box" data-cat="{{prod.category.id}}">
+  {% if request.user.is_authenticated  and not request.user.is_superuser %}
+  <div class="save-btn center" data-action="{% url 'save_product' user.customer.id prod.id %}">
+      {% if prod in user.customer.saved.all  %}
+        <i class="fa fa-heart"></i>
+      {%  else  %}
+      <i class="far fa-heart"></i>
+      {% endif %}
+      </div>
+  {% endif %}
+  <a href="{% url 'product' prod.slug %}">
+    
+    <div class="image">
+      <img src="{{prod.image.all.0.image.url}}" alt="" />
+      <img class="scend-img" src="{{prod.image.all.1.image.url}}" alt="" />
+    </div>
+
+    <div class="content">
+      <h3>{{prod.title}}</h3>
+      <div class="price">
+        {% if prod.discount %}
+        <p class="amount">{{prod.price}} DH</p>
+        <p class="cut">{{prod.oldprice}} DH</p>
+        <div class="offer center">-{{prod.discount|floatformat:0}}%</div>
+        {% else %}
+        <p class="amount">{{prod.price}} DH</p>
+
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>
+  {% endfor %}
+</div>
+<script>
+  const box_images = document.querySelectorAll(".box .image");
+  const showIcon = document.querySelector(".icon--view-more");
+  box_images.forEach((box) => {
+    box.addEventListener("mousemove", (e) => {
+      showIcon.style = `opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); top: ${e.pageY}px; left:${e.pageX}px;`;
+    });
+    box.addEventListener("mouseleave", (e) => {
+      showIcon.style = `opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.6); top: ${e.pageY}px; left:${e.pageX}px;`;
+    });
+  });
+
+  const saveBtns = document.querySelectorAll(".save-btn");
+  saveBtns.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      console.log(el.dataset.action);
+      if(el.querySelector("i").classList.contains("far")){
+            el.querySelector("i").classList.replace("far", "fa")
+          }else{
+            el.querySelector("i").classList.replace("fa", "far")
+          }
+      $.ajax({
+        type: "POST",
+        url: el.dataset.action,
+        data:{
+          'csrfmiddlewaretoken':  "{{ csrf_token }}"},
+        success: function (json) {
+          const { saved } = json;
+           if(saved){
+            el.querySelector("i").classList.replace("far", "fa")
+          }else{
+            el.querySelector("i").classList.replace("fa", "far")
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });
+    });
+  });
+</script>
+

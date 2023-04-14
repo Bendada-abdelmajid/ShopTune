@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static '/img/mone.png'%}" rel="icon" type="image/png"   />
+
+    <title>Shoptune {% block title %} {% endblock title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/globale.css'%}" />
+    <link rel="stylesheet" href="{% static '/css/reset.css'%}" />
+</head>
+<body >
+    <div class="reset_page center">
+        <div class="card">
+            
+            <a class="logo" href="{% url 'home' %}">Shoptune</a>
+           
+            {% block reset %} {% endblock %}
+        </div>
+    </div>
+    <script>
+       
+  
+    
+    const logotext = document.querySelector('.card .logo');
+  
+    const colorA = ["#9df871", "#51cacc", " #df7b33", "#de9dd6", "#ff708e;"];
+    const splitlogotext = logotext.textContent.split('')
+
+    logotext.textContent = ""
+    let ind = 0;
+    for (let i = 0; i < splitlogotext.length; i++) {
+        ind = Math.floor(Math.random() * colorA.length)
+
+        logotext.innerHTML += `<span style=" color: ${colorA[ind]}; animation-delay: ${i/2}s;">${splitlogotext[i]}</span>`
+
+    }
+    </script>
+</body>
+</html>

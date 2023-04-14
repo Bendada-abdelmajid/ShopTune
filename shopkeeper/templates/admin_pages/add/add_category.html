@@ -1,0 +1,56 @@
+{% extends 'admin_pages/add.html'%}
+{% load static %}
+{% block forms %} 
+<style>
+    #add_category {
+      background: #fda090 !important;
+    }
+  </style>
+    
+    <div class="form box ">
+         <h1 class="form-title" >
+          {% if edit %} 
+          <button onclick="history.back();" style="cursor: pointer; font-size:25px;" ><i class="fa fa-arrow-left-long"></i></button> Edit  
+          {% else %}
+          Add 
+          {% endif %}
+          Categorie
+        </h1>
+        <form method=POST enctype="multipart/form-data" id="cats_form">
+            <div class="form-content">
+                {% csrf_token %}
+                {{form.as_p}}
+                
+            </div>
+            <button type="submit" class="btn" >{% if edit %} Edit  
+              {% else %}
+              add 
+              {% endif %}</button>
+            <button onclick="history.back();" class="btn r" >Back</button>
+        </form>
+    </div>
+    {{sub_cats|json_script:"cats"}}
+<script>
+  const cats= JSON.parse(document.getElementById("cats").textContent)
+  const main_cat_select= document.querySelector("#cats_form #id_main_cat");
+  const sub_cats_select= document.querySelector("#cats_form #id_sub_cat");
+
+  setOptions(main_cat_select.value)
+  main_cat_select.addEventListener("change", (e) => { 
+    console.log(e.target.value)
+    setOptions(e.target.value)
+   })
+  function setOptions(value) {
+    console.log(cats[value])
+    sub_cats_select.innerHTML=""
+    if(value){
+      cats[value].forEach(el => {
+        console.log("{{sub}}" )
+        sub_cats_select.innerHTML+=`<option value="${el.id}" ${el.name=="{{sub}}" ? "selected":""}>${el.name}</option>`
+      });
+    }
+    
+  }
+  console.log(cats)
+</script>
+{% endblock %}

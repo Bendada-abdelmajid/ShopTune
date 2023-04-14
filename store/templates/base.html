@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% block metaFb %}
+  <meta property="og:title" content="Dream Shop~Rokya " />
+  <meta property="og:description" content="لا تضيّع المزيد من الوقت، فنحن نضع تحت تصرفك أفضل المنتوجات وأحسن
+  الخدمات المتواجدة في سوق التجارة الإلكترونية بابي الجعد." />
+  <meta property="og:image" content="{% static '/img/logo-black.webp'%}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  {% endblock metaFb %}
+  <meta name="description" content="لا تضيّع المزيد من الوقت، فنحن نضع تحت تصرفك أفضل المنتوجات وأحسن
+  الخدمات المتواجدة في سوق التجارة الإلكترونية بابي الجعد.">
+  <meta name="keywords" content="beejaad, {% for cat in categories%} {{cat}}, {% endfor%}">
+  <link href="{% static '/img/mone.png'%}" rel="icon" type="image/png"   />
+  <title>Shoptune {% block title %} {% endblock title %}</title>
+  <link rel="stylesheet" href="{% static '/css/globale.css'%}" />
+  <link rel="stylesheet" href="{% static '/css/main.css'%}" />
+  <link rel="stylesheet" href="{% static '/css/menu.css'%}" />
+<link rel="stylesheet" href="{% static '/css/sidebar.css'%}" />
+
+  <link rel="stylesheet" href="{% static '/css/all.min.css'%}" />
+  <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+  {% if not request.user.is_authenticated  %}
+  <link rel="stylesheet" href="{% static '/css/registration.css'%}" />
+
+  {% endif %}
+
+  <script src="{% static '/js/jquery-3.6.0.min.js'%}"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  {% block style %}
+  {% endblock %}
+   
+  <script type="module" src="{% static '/js/base.js'%}"></script>
+
+</head>
+
+<body >
+  {% include 'page_loder.html' %}
+
+  <div class="loader" id="loade-animation">
+    <div class="circle">
+      <div class="dot" style="--l:0"></div>
+      <div class="dot" style="--l:1"></div>
+      <div class="dot" style="--l:2"></div>
+      <div class="dot" style="--l:3"></div>
+      <div class="dot" style="--l:4"></div>
+      <div class="dot" style="--l:5"></div>
+      <div class="dot" style="--l:6"></div>
+      <div class="dot" style="--l:7"></div>
+    </div>
+  </div>
+  <svg class="custom-cursor__view-more icon icon--view-more" aria-hidden="true" role="presentation"
+    style="opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.6);">
+    <use xlink:href="#icon-view-more">
+      <symbol id="icon-view-more" viewBox="0 0 79 80" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="39.5" cy="39.9951" r="39.5" fill="black"></circle>
+        <path
+          d="M39.9646 28.3819C22.9135 28.2511 13.4512 40.0777 13.4512 40.0777C16.6743 44.1062 19.8974 45.9953 24.4135 48.7038C25.5238 49.3695 32.8302 52.3909 40.3033 52.6071C47.4431 52.8148 53.6286 50.1405 56.1017 48.8716C62.005 45.8417 64.1609 43.7791 66.4781 40.6183C66.4754 40.6211 57.0157 28.5128 39.9646 28.3819ZM39.7953 50.7066C34.47 50.7066 30.1501 46.1376 30.1501 40.4988C30.1501 34.8628 34.4673 30.2909 39.7953 30.2909C45.1232 30.2909 49.4404 34.86 49.4404 40.4988C49.4404 46.1376 45.1205 50.7066 39.7953 50.7066Z"
+          fill="white"></path>
+        <path
+          d="M39.5853 23.147C39.5879 23.3831 40.6041 23.2096 40.6014 22.8597C40.5852 21.036 40.5718 19.2153 40.5557 17.3917C40.553 17.1299 40.5503 16.8682 40.5503 16.6036C40.5476 16.3675 39.5315 16.541 39.5342 16.8909C39.5503 18.7146 39.5638 20.5353 39.5799 22.359C39.5799 22.6235 39.5826 22.8853 39.5853 23.147Z"
+          fill="white"></path>
+        <path
+          d="M55.5264 26.2308C55.6205 26.2593 55.7576 26.245 55.8517 26.2251C56.0399 26.1881 56.3355 26.1199 56.4458 25.9264C56.857 25.1982 57.2656 24.4699 57.6769 23.7445C57.7145 23.6791 57.6339 23.6364 57.5909 23.625C57.4941 23.5966 57.3597 23.6108 57.2656 23.6307C57.0775 23.6677 56.7818 23.736 56.6716 23.9294C56.2603 24.6577 55.8517 25.3859 55.4404 26.1113C55.4055 26.1768 55.4834 26.2194 55.5264 26.2308Z"
+          fill="white"></path>
+        <path
+          d="M67.9618 31.2953C67.9027 31.2242 67.771 31.2043 67.6876 31.2072C67.443 31.2072 67.1769 31.2953 67.0156 31.4973C66.6769 31.9183 66.3409 32.3393 66.0021 32.7631C65.9538 32.8257 65.9511 32.9196 66.0021 32.9793C66.0613 33.0504 66.193 33.0703 66.2763 33.0675C66.521 33.0675 66.7871 32.9793 66.9484 32.7773C67.2871 32.3564 67.6231 31.9354 67.9618 31.5115C68.0102 31.449 68.0129 31.3551 67.9618 31.2953Z"
+          fill="white"></path>
+        <path
+          d="M23.5535 26.1624C23.6556 26.3445 23.9567 26.2876 24.118 26.2364C24.2363 26.1994 24.3653 26.1539 24.4621 26.0714C24.5024 26.0344 24.6099 25.9434 24.5723 25.8751C24.161 25.1468 23.7524 24.4186 23.3411 23.6932C23.239 23.5111 22.9379 23.568 22.7766 23.6192C22.6583 23.6562 22.5293 23.7017 22.4325 23.7842C22.3922 23.8212 22.2847 23.9122 22.3223 23.9805C22.7309 24.7088 23.1422 25.4342 23.5535 26.1624Z"
+          fill="white"></path>
+        <path
+          d="M13.7549 33.0988C13.8571 33.0419 13.97 32.9565 14.013 32.8371C14.0479 32.7375 14.0614 32.6152 13.9888 32.527C13.6501 32.1059 13.314 31.6849 12.9753 31.2611C12.9001 31.1672 12.7979 31.116 12.685 31.0989C12.5586 31.079 12.3974 31.1074 12.2844 31.1729C12.1823 31.2298 12.0694 31.3151 12.0264 31.4346C11.9914 31.5342 11.978 31.6565 12.0506 31.7447C12.3893 32.1657 12.7253 32.5867 13.064 33.0106C13.1393 33.1045 13.2415 33.1557 13.3544 33.1727C13.4807 33.1898 13.642 33.1614 13.7549 33.0988Z"
+          fill="white"></path>
+        <path
+          d="M39.5853 58.7241C39.5691 59.5662 39.5557 60.4083 39.5396 61.2504C39.5369 61.3727 39.5342 61.4922 39.5342 61.6146C39.5288 61.8422 40.545 61.68 40.5503 61.3272C40.5665 60.4851 40.5799 59.643 40.596 58.8009C40.5987 58.6785 40.6014 58.559 40.6014 58.4367C40.6068 58.2091 39.5907 58.3713 39.5853 58.7241Z"
+          fill="white"></path>
+        <path
+          d="M56.4516 55.421C56.2984 55.148 55.3468 55.549 55.4355 55.7083C55.8468 56.4365 56.2554 57.1648 56.6667 57.8901C56.8199 58.1632 57.7715 57.7621 57.6828 57.6028C57.2715 56.8775 56.8629 56.1492 56.4516 55.421Z"
+          fill="white"></path>
+        <path
+          d="M24.4728 55.3298C24.3787 55.2899 24.2389 55.2985 24.1448 55.3155C23.9271 55.3554 23.6771 55.435 23.5588 55.6455C23.1475 56.3738 22.7389 57.1021 22.3276 57.8275C22.2873 57.8986 22.376 57.9641 22.4217 57.9811C22.5158 58.021 22.6556 58.0124 22.7497 57.9954C22.9674 57.9555 23.2174 57.8759 23.3357 57.6654C23.747 56.9371 24.1556 56.2088 24.5668 55.4834C24.6045 55.4151 24.5158 55.3497 24.4728 55.3298Z"
+          fill="white"></path>
+      </symbol>
+    </use>
+
+  </svg>
+  <div class="popup center">
+   
+      {% if not request.user.is_authenticated  %}
+      {% include 'registration/rigistrations.html' %}
+      {% endif %}
+    
+  </div>
+
+  {% include 'basket.html' %}
+
+  {% include 'header.html' %}
+  <div class="stor">
+    {% block sidebarContent %} 
+   
+    {% include 'SideBar.html' %}
+    {% endblock sidebarContent %}
+    <div>
+      {% block content %} {% endblock %}
+      
+      <div class="footer_cont">
+        <div class="info-section ">
+          <div class="f-start col">
+            <div class="info-icon center">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-width="2" d="M7,11 L7,6 C7,3 9,1 12,1 C15,1 17,3 17,6 L17,11 M12,23 C15.8659932,23 19,19.8659932 19,16 C19,12.1340068 15.8659932,9 12,9 C8.13400675,9 5,12.1340068 5,16 C5,19.8659932 8.13400675,23 12,23 Z M12,15 L12,19 M12,16 C12.5522847,16 13,15.5522847 13,15 C13,14.4477153 12.5522847,14 12,14 C11.4477153,14 11,14.4477153 11,15 C11,15.5522847 11.4477153,16 12,16 Z"></path></svg>
+            </div>
+  
+          <div>
+            <h4>100% PAYMENT SECURE</h4>
+            <p>
+              We ensure secure payment with PEV
+            </p>
+          </div>
+          </div>
+          <div class="f-start col">
+            <div class="info-icon center">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g id="Delivery_Truck"><g><path d="M21.47,11.185l-1.03-1.43a2.5,2.5,0,0,0-2.03-1.05H14.03V6.565a2.5,2.5,0,0,0-2.5-2.5H4.56a2.507,2.507,0,0,0-2.5,2.5v9.94a1.5,1.5,0,0,0,1.5,1.5H4.78a2.242,2.242,0,0,0,4.44,0h5.56a2.242,2.242,0,0,0,4.44,0h1.22a1.5,1.5,0,0,0,1.5-1.5v-3.87A2.508,2.508,0,0,0,21.47,11.185ZM7,18.935a1.25,1.25,0,1,1,1.25-1.25A1.25,1.25,0,0,1,7,18.935Zm6.03-1.93H9.15a2.257,2.257,0,0,0-4.3,0H3.56a.5.5,0,0,1-.5-.5V6.565a1.5,1.5,0,0,1,1.5-1.5h6.97a1.5,1.5,0,0,1,1.5,1.5ZM17,18.935a1.25,1.25,0,1,1,1.25-1.25A1.25,1.25,0,0,1,17,18.935Zm3.94-2.43a.5.5,0,0,1-.5.5H19.15a2.257,2.257,0,0,0-4.3,0h-.82v-7.3h4.38a1.516,1.516,0,0,1,1.22.63l1.03,1.43a1.527,1.527,0,0,1,.28.87Z"></path><path d="M18.029,12.205h-2a.5.5,0,0,1,0-1h2a.5.5,0,0,1,0,1Z"></path></g></g></svg>
+            </div>
+            <div>
+              <h4>On Time Delivery</h4>
+            <p>
+              Partiality or in a particular 
+              principles as believing
+            </p>
+            </div>
+            
+          </div>
+          <div class="f-start col">
+            <div class="info-icon center">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M512 0C229.232 0 0 229.232 0 512s229.232 512 512 512 512-229.232 512-512S794.768 0 512 0zm128 82.976c144.224 42.992 257.648 156.8 300.704 301.023H733.136A257.472 257.472 0 0 0 640 290.943zm63.633 429.232c0 105.936-85.792 191.808-191.632 191.808s-191.632-85.872-191.632-191.808 85.808-191.823 191.632-191.823 191.632 85.888 191.632 191.823zM448.001 68.928c20.912-2.992 42.256-4.624 64-4.624 21.727 0 43.088 1.632 64 4.624v195.808c-20.48-5.296-41.856-8.4-64-8.4s-43.504 3.104-64 8.4V68.928zm-64 14.048v207.968c-38.56 22.384-70.72 54.544-93.136 93.056H83.297c43.04-144.224 156.48-258.031 300.704-301.024zM64.305 512.159c0-21.824 1.855-43.169 4.88-64.161h195.392c-5.312 20.512-8.24 41.983-8.24 64.176 0 22.064 2.912 43.425 8.16 63.825H69.137c-2.975-20.88-4.832-42.144-4.832-63.84zM384 941.326C239.664 898.318 126.193 784.35 83.201 639.998h207.472c22.432 38.656 54.655 70.945 93.327 93.393v207.936zm192.001 14.047c-20.912 2.992-42.273 4.624-64 4.624-21.744 0-43.088-1.648-64-4.624V759.597c20.496 5.296 41.856 8.4 64 8.4s43.52-3.104 64-8.4v195.776zm64-14.048V733.39c38.656-22.448 70.897-54.736 93.313-93.392h207.472c-42.993 144.336-156.464 258.32-300.784 301.328zm119.504-365.327c5.248-20.4 8.16-41.76 8.16-63.825 0-22.193-2.928-43.664-8.256-64.176h195.408c3.008 20.992 4.88 42.336 4.88 64.16 0 21.697-1.84 42.977-4.832 63.841h-195.36z"></path></svg>
+            </div>
+            <div>
+              <h4>24x7 Support</h4>
+            <p>
+              offending belonging  promotion provision an.
+            </p>
+            </div>
+            
+          </div>
+          <div class="f-start col">
+            <div class="info-icon center">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"></path><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path></svg>
+            </div>
+            <div>
+                <h4>return in 14 days</h4>
+              <p>
+                offending belonging <br /> promotion provision an.
+              </p>
+            </div>
+          </div>
+        </div>
+      <footer class="footer f-start">
+    
+    
+        <div class="footer__content">
+          <h3 class="footer__title"> Dream Shop</h3>
+          <p class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit consectetur adipisicing elit</p>
+          <div class="footer__icons f-start">
+            {% if profile.facebook %}
+            <a href="{{profile.facebook }}" target="blank" class="footer__social center"><i class="fab fa-facebook-f"></i></a>
+            {% endif %} 
+            {% if profile.instagram %}
+            <a href="{{profile.instagram }}" target="blank" class="footer__social center"><i class="fab fa-instagram"></i></a>
+            {% endif %}
+            {% if profile.tiktok %}
+            <a href="{{profile.tiktok }}" target="blank" class="footer__social center"><i class="fab fa-tiktok"></i></a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="footer__content" style="flex-grow: 1;">
+          <h3 class="footer__title"> Contact us</h3>
+          <ul>
+            <li><a href="tel:{{profile.phone}}" class="footer__link f-start"><i class="fa fa-phone-alt"></i> {{profile.phone}}</a></li>
+            <li><p class="footer__link f-start"><i class="fa fa-envelope"></i> <span>{{profile.email}}</span></p></li>
+            <li><p class="footer__link f-start"><i class="fa fa-map-marker-alt"></i> <span>{{profile.address}}</span></p>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="footer__content" style="flex-grow: 1;">
+    
+          <h3 class="footer__title">Are you new in our Store</h3>
+          <p>Subskrip to newsLetter to get the new products</p>
+          <div class="form_cont">
+            <form method="POST" class="center" id="sub_form">
+              {%csrf_token%}
+              
+                <input type="email" name="subEmail" id="sub-email" placeholder="Enter your Email" required >
+              
+              <button type="submit" class="center"><i class="fa fa-paper-plane"></i></button>
+            </form>
+            <p class="alert" id="newsLetter-alert">
+            </p>
+          </div>
+          
+          <img src="{% static '/img/icon-pay.png'%}" />
+        </div>
+      </footer>
+      </div>
+  </div>
+  
+  
+    <div class="up main-btn" id="up_btn">
+      <svg>
+        <use xlink:href="#icon-arrow-right">
+          <symbol id="icon-arrow-right" viewBox="0 0 79 79" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M79 39.5C79 61.3152 61.3152 79 39.5 79C17.6848 79 0 61.3152 0 39.5C0 17.6848 17.6848 0 39.5 0C61.3152 0 79 17.6848 79 39.5Z"
+              fill="black"></path>
+            <path
+              d="M33.5736 29.2304C33.3863 29.3361 33.2222 29.5192 33.1211 29.7916C32.8841 30.428 32.9902 31.3156 33.4692 31.6749C36.441 33.9104 39.4742 35.9722 42.4725 38.1302C42.8371 38.3932 43.2001 38.6562 43.5614 38.9239C40.2333 41.4624 36.8338 43.813 33.5322 46.4219C32.6935 47.0841 33.0714 49.1717 34.0228 48.9885C36.983 48.4155 37.5382 47.4927 43.3277 44.447C43.8532 44.1699 45.9515 42.6623 46.3907 42.1692C46.7769 41.7371 47.183 41.3074 47.5327 40.8166C48.0896 40.037 48.151 38.8464 47.6935 37.9471C47.3769 37.3224 45.9084 36.2704 45.4476 35.8712C43.6808 34.3425 41.5907 33.058 40.4968 32.4193C38.3272 31.1466 36.5355 30.2754 34.3476 29.066C34.0957 28.9275 33.8073 29.0167 33.5736 29.2304Z"
+              fill="white"></path>
+          </symbol>
+        </use>
+      </svg>
+    </div>
+  </div>
+
+ 
+
+  <script>
+
+
+    function message(text, type, mess) {
+      
+      mess.classList = []
+      mess.innerHTML = text
+      mess.classList.add("alert", "show", type)
+      setTimeout(() => {
+        mess.classList = []
+        mess.classList.add("alert")
+      }, 6000)
+    }
+
+
+
+
+
+
+    const sub_form = document.getElementById('sub_form')
+    sub_form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: "{% url 'subscribe' %}",
+        data: {
+          csrfmiddlewaretoken: $("input[name= csrfmiddlewaretoken]").val(),
+          subEmail: $(`#sub-email`).val(),
+        },
+        success: function (data) {
+          document.getElementById('sub-email').value = "";
+          message(data.message, data.type, document.getElementById("newsLetter-alert") )
+          window.scrollTo({
+            'bottom': 0,
+            'behavior': "smooth",
+          })
+        },
+        error: function (response) {
+          console.log("error", response);
+        },
+      });
+    });
+
+    
+  </script>
+  
+  <!-- <script src="https://kit.fontawesome.com/06349bfd5c.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>

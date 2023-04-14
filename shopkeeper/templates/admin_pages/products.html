@@ -1,0 +1,148 @@
+{% extends 'admin_pages/admin_page.html'%} {% load static %}
+
+
+
+{% block adminnav %}
+ 
+<div class="sidebar-button">
+  <span class="dashboard">Products</span>
+</div>
+<div class="links f-start">
+    <a href="{% url 'admin-page' %}"><i class="fa fa-home"></i></a><span>/</span><span class="see">Products  </span>
+</div>
+
+{% endblock %}
+
+
+
+
+{% block admincontent %}
+<div class="tabel-header">
+    <form class="search-box space_between">
+        <input type="text" placeholder="Search..." name="q">
+        <button type="submit" class='fa fa-search btn-search'></button>
+      </form>
+    <div class="f-start" style="gap: 15px;">
+        <div class="delete-btn" id="delete_icon" data-type="بضائع">
+            <i class="fa fa-trash"></i>
+        </div>
+        <a href="{% url 'add-pruduct' %}" class="add-btn center" >
+            <p>Add Product</p>
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+    
+</div>
+<div class="scroll-x scrollbar box m-10">
+    <table id="product-table" class="table" >
+        <thead>
+            <tr>
+                <th id="selectAll"><i class="fa fa-list-check"></i></th>
+                <th >ID</th>
+                <th colspan="2">name</th>
+                <th class="none-1">Cat</th>
+                <th  >Price</th>
+                
+                <th class="none-1" >Date</th>
+                <th class="none-2" > 
+                    <form >
+                        <select name="select" id="select" >
+                            <option value="All" {% if select == "All" %} selected {% endif %}>all</option>
+                            <option value="False" {% if select == "False" %} selected {% endif %}>in Stock</option>
+                            <option value="True" {% if select == "True" %} selected {% endif %}> out stock</option>
+                        </select>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prod in qwery %}
+           
+                <tr id="tr-{{prod.id}}">
+                        <td class="tr-link"><a href="{% url 'edit-product' prod.id %}"></a></td>
+                        
+                        <td style="width: 30px;">
+                            <input type="checkbox" name="product" class="checkbox-btn" value="{{prod.id}}" />
+                        </td>
+                        <td >{{prod.id}}</td>
+                        <td class="img click">
+                            <img src="{{prod.image.all.0.image.url}}" alt="">
+                        </td>
+                        <td  class="click">{{prod.title}}</td>
+                        <td class="none-1 click" >{{prod.category}}</td>
+                        <td  >${{prod.price}} {% if prod.oldprice %} <span style="opacity: 0.9; text-decoration: line-through;">${{prod.oldprice}}</span>{%endif%}</td>
+                        <td class="none-1" >{{prod.product_date|date:'Y-m-j'}}</td>
+                        <td class="none-2 " >
+                            <button class="btn state {% if prod.out_of_stock %}danger{% endif %}" data-stus="{{prod.out_of_stock}}" onclick="stockTogel(this, '{{prod.id}}')">
+                                {% if prod.out_of_stock %}
+                                out stock
+                                {% else %}
+                                in Stock
+                                {% endif %}
+                            </button>
+                            
+                        </td>
+                
+                </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/delete.js'%}"></script>
+<script>
+    const products = document.querySelectorAll("table tbody tr");
+    products.forEach((el) => {
+        el.addEventListener("click", (e) => {
+        if(e.target.classList.contains('click')){
+            el.querySelector('.tr-link a').click()
+        }
+    })
+    })
+  
+    const select= document.getElementById('select')
+    select.addEventListener('change', (e) => {
+        console.log();
+        select.parentElement.submit()
+    })
+    function stockTogel(e, id){
+        let state=e.dataset.stus
+        console.log(state);
+        $.ajax({
+            method: "POST",
+            url: "{% url 'change-state' 1200 %}".replace('1200', id),
+            data: {
+                'state':state,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function (data) {
+                console.log('hi');
+                if(state == 'False') {
+                    e.innerHTML='out stock'
+                    e.classList.add('danger')
+                    e.dataset.stus = 'True'              
+                } else {
+                    e.innerHTML='in Stock'
+                    e.classList.remove('danger')
+                    e.dataset.stus = 'False'  
+                }
+            },
+            error: function (response) {
+                console.log("error", response);
+            },
+        });
+    }
+  
+    $(document).ready(function() {
+        $("#delete_btn").click(function() {
+          delete_items("{% url 'products' %}","{{ csrf_token }}", 'product-table' )
+
+        })
+      })
+   
+</script>
+{% endblock script %}

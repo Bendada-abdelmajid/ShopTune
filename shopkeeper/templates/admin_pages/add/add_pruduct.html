@@ -1,0 +1,86 @@
+{% extends 'admin_pages/add.html'%}
+{% load static %}
+{% block forms %} 
+<style>
+    #add_pruduct {
+        background: #fda090 !important;
+    }
+  </style>
+    <div class="form box m-form">
+        <h1 class="form-title">Add Product</h1>
+        <form method=POST enctype="multipart/form-data" >
+            <div class="form-content">
+                <div class="cats_menu_cont center">
+                <div class="cats_menu box">
+                    <h1 class="form-title">Select Categorie</h1>
+                    <div class="list">
+                    {% for main, value in categories.items %}
+                    
+                        <div class="drop-menu">
+                            
+                            <div class="menu-head space_between"><h4>{{main}}</h4> <i class="fa fa-angle-down"></i></div>
+                            <div class="drop-menu-body ">
+                                {% for sub, l in value.list.items %}
+                                <div class="menu-body-head "><h4>{{sub}}</h4> </div>
+                                <div class="cats-list">
+                                    {% for cat in l.list %}
+                                   <div class="item" data-id="{{cat.id}}">{{cat.name}}</div>
+                                   {% endfor %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                       
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+               
+            </div>
+           
+            <button type="submit" class="btn" >add</button>
+        </form>
+    </div>
+    
+<script>
+
+ 
+        const form_content= document.querySelector('.form-content')
+        
+       
+        
+        const size_Div= document.createElement('div')
+        size_Div.classList.add('size_div')
+     
+        size_Div.appendChild(document.getElementById('id_size').parentElement)
+        form_content.insertBefore(size_Div, document.getElementById('id_image').parentElement)
+        document.getElementById('id_size').parentElement.classList.add("size_p")
+        for (let i = 2; i < 5; i++) {
+           
+            document.getElementById('id_size' + i).parentElement.classList.add("size_p", "hide")
+            size_Div.appendChild(document.getElementById('id_size' + i).parentElement)
+        }
+        
+        const cats_menu=document.querySelector('.cats_menu_cont')
+        const cats_drop_down_btns=document.querySelectorAll('.cats_menu .menu-head')
+        const cats_drop_menus=document.querySelectorAll('.cats_menu .drop-menu')
+        const cats_items=document.querySelectorAll('.cats_menu .item')
+        const cats_select=document.getElementById("id_category")
+        cats_drop_down_btns.forEach(el=>{
+        el.addEventListener("click", (e) => {
+            cats_drop_menus.forEach(el=>{el.classList.remove("active")})
+            el.parentElement.classList.toggle("active")
+        })})
+        cats_items.forEach(el=>{
+        el.addEventListener("click", (e) => {
+             
+            cats_select.value=el.dataset.id
+            cats_menu.classList.remove("active")
+        })})
+        cats_select.addEventListener("click", () => { 
+            cats_menu.classList.add("active") })
+</script>
+{% endblock %}

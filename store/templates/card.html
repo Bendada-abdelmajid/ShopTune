@@ -1,0 +1,717 @@
+{% extends 'base.html'%} {% load static %}
+{% block style %}
+
+<link rel="stylesheet" href="{% static '/css/card.css'%}" />
+{% endblock %}
+
+{% block title %} | {{prod.title}} {% endblock title %}
+{% block metaFb %}
+
+<meta property="og:title" content="{{prod.title}}" />
+<meta property="og:description" content="{{prod.description}}" />
+<meta property="og:image" content="{{prod.image.all.0.image.url}}" />
+
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:type" content="website" />
+{% endblock metaFb %}
+
+{% block sidebarContent %}
+
+<div class="side-bar">
+  <div class="drop-down-menu" style="margin-top: 0;">
+    <a href="#details" class="drop-down-menu-head space_between" style="gap:10px">
+      <h4>Product detaile</h4>
+    </a>
+    <a href="#simeler" class="drop-down-menu-head space_between" style="gap:10px">
+      <h4>Simeler Products</h4>
+    </a>
+    <a href="#reviews" class="drop-down-menu-head space_between" style="gap:10px">
+      <h4>Reviews</h4>
+    </a>
+  </div>
+  <div class="drop-down-menu">
+    <div class="drop-down-menu-head space_between" style="gap:10px">
+      <h4>Simeler Categories</h4>
+
+    </div>
+    <div class="drop-down-menu-body">
+      {% for cat in cats %}
+      <p>
+        <input type="checkbox" />
+        <a href="{% url 'cat-cats' cat.main_cat.slug cat.sub_cat.slug cat.slug  %} ">{{cat.name}}</a>
+      </p>
+
+      {% endfor %}
+
+
+    </div>
+  </div>
+  <div class="drop-down-menu">
+    <div class="drop-down-menu-head space_between" style="gap:10px">
+      <h4>Shipping & Delivery</h4>
+
+    </div>
+    <div class="drop-down-menu-body">
+     
+      <div class="f-start col">
+      
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g id="Delivery_Truck"><g><path d="M21.47,11.185l-1.03-1.43a2.5,2.5,0,0,0-2.03-1.05H14.03V6.565a2.5,2.5,0,0,0-2.5-2.5H4.56a2.507,2.507,0,0,0-2.5,2.5v9.94a1.5,1.5,0,0,0,1.5,1.5H4.78a2.242,2.242,0,0,0,4.44,0h5.56a2.242,2.242,0,0,0,4.44,0h1.22a1.5,1.5,0,0,0,1.5-1.5v-3.87A2.508,2.508,0,0,0,21.47,11.185ZM7,18.935a1.25,1.25,0,1,1,1.25-1.25A1.25,1.25,0,0,1,7,18.935Zm6.03-1.93H9.15a2.257,2.257,0,0,0-4.3,0H3.56a.5.5,0,0,1-.5-.5V6.565a1.5,1.5,0,0,1,1.5-1.5h6.97a1.5,1.5,0,0,1,1.5,1.5ZM17,18.935a1.25,1.25,0,1,1,1.25-1.25A1.25,1.25,0,0,1,17,18.935Zm3.94-2.43a.5.5,0,0,1-.5.5H19.15a2.257,2.257,0,0,0-4.3,0h-.82v-7.3h4.38a1.516,1.516,0,0,1,1.22.63l1.03,1.43a1.527,1.527,0,0,1,.28.87Z"></path><path d="M18.029,12.205h-2a.5.5,0,0,1,0-1h2a.5.5,0,0,1,0,1Z"></path></g></g></svg>
+       
+        <div>
+          <h4>On Time Delivery</h4>
+        <p>
+          safe shipping for all orders
+        </p>
+        </div>
+        
+      </div>
+      <div class="f-start col">
+       
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M512 0C229.232 0 0 229.232 0 512s229.232 512 512 512 512-229.232 512-512S794.768 0 512 0zm128 82.976c144.224 42.992 257.648 156.8 300.704 301.023H733.136A257.472 257.472 0 0 0 640 290.943zm63.633 429.232c0 105.936-85.792 191.808-191.632 191.808s-191.632-85.872-191.632-191.808 85.808-191.823 191.632-191.823 191.632 85.888 191.632 191.823zM448.001 68.928c20.912-2.992 42.256-4.624 64-4.624 21.727 0 43.088 1.632 64 4.624v195.808c-20.48-5.296-41.856-8.4-64-8.4s-43.504 3.104-64 8.4V68.928zm-64 14.048v207.968c-38.56 22.384-70.72 54.544-93.136 93.056H83.297c43.04-144.224 156.48-258.031 300.704-301.024zM64.305 512.159c0-21.824 1.855-43.169 4.88-64.161h195.392c-5.312 20.512-8.24 41.983-8.24 64.176 0 22.064 2.912 43.425 8.16 63.825H69.137c-2.975-20.88-4.832-42.144-4.832-63.84zM384 941.326C239.664 898.318 126.193 784.35 83.201 639.998h207.472c22.432 38.656 54.655 70.945 93.327 93.393v207.936zm192.001 14.047c-20.912 2.992-42.273 4.624-64 4.624-21.744 0-43.088-1.648-64-4.624V759.597c20.496 5.296 41.856 8.4 64 8.4s43.52-3.104 64-8.4v195.776zm64-14.048V733.39c38.656-22.448 70.897-54.736 93.313-93.392h207.472c-42.993 144.336-156.464 258.32-300.784 301.328zm119.504-365.327c5.248-20.4 8.16-41.76 8.16-63.825 0-22.193-2.928-43.664-8.256-64.176h195.408c3.008 20.992 4.88 42.336 4.88 64.16 0 21.697-1.84 42.977-4.832 63.841h-195.36z"></path></svg>
+       
+        <div>
+          <h4>24x7 Support</h4>
+        <p>
+          We support 24 hours a day
+        </p>
+        </div>
+        
+      </div>
+      <div class="f-start col">
+        
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"></path><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path></svg>
+       
+        <div>
+            <h4>return in 30 days</h4>
+          <p>
+            You have 30 days to return
+          </p>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+
+</div>
+
+{% endblock sidebarContent %}
+{% block content %}
+{% load social_share %}
+
+
+
+
+<div class="path f-start">
+  <a href="/">Home</a> <span>/</span> <a href="{% url 'main-cats' prod.category.main_cat.slug   %}">{{prod.category.main_cat}}</a> <span>/</span> <a
+    href="{% url 'sub-cats' prod.category.main_cat.slug prod.category.sub_cat.slug  %}">{{prod.category.sub_cat.name}}</a> <span>/</span> <a href="{% url 'cat-cats' prod.category.main_cat.slug prod.category.sub_cat.slug  prod.category.slug  %}">{{prod.category.name}}</a> <span>/</span>
+  <span>{{prod.title}}</span>
+</div>
+<main class="card main-grid face m-scroll" data-id="{{prod.id}}" id="details">
+
+  <div class="card__content">
+    <div class="card__head">
+
+      <h2 id="title">{{prod.title}}</h2>
+      <p class="card__price"> $ <span id="card-price">{{prod.price}}</span></p>
+      <p class="card__text">
+        <!-- {{prod.get_description}} -->
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe rem asperiores magni cum natus incidunt, esse
+        animi dolores et! Quibusdam, rerum cumque esse temporibus nihil molestiae quos facilis vel ad!
+      </p>
+
+
+      <div class="card__choose">
+
+        {% if prod.get_sizes %}
+        <div class="card__size">
+          <label for="size" class="card__label">Sizes</label>
+          <select name="size" id="size" class="card__select">
+            {% for size in prod.get_sizes  %}
+            <option value="{{size}}">{{size}}</option>
+            {% endfor%}
+          </select>
+
+        </div>
+
+        {% endif %}
+
+        {% if prod.colors.lenght > 0 %}
+
+        <div class="card__color">
+          <label for="color" class="card__label">Colors</label>
+          <div class="clrs">
+            {% for color in prod.colors.all %}
+            <span class="clr {% if forloop.first %} select {%endif%} " style="--i:{{color.hex_color}};"
+              data-clr="{{color.hex_color}}"></span>
+            {% endfor%}
+          </div>
+
+        </div>
+        {% endif %}
+
+      </div>
+      <div class="card_btns f-start">
+        <button class="main-btn f-start" id="add-button" value="{{prod.id}}">
+          <div class="icon center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bag-plus"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+              <path
+                d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+            </svg>
+          </div>
+          <p>Add to Basket</p>
+        </button>
+        <div class="card__counter">
+          <button class="card__numb center" id="sub"><i class="fa fa-minus"></i></button>
+          <input type="number" class="card__count" value="1" id="qty" maxlength="1" />
+          <button class="card__numb center" id="add"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="f_btn f-start">
+        <span>Share on :</span>
+        <button class="main-btn center" title="شاركه مع اصدقائك على فيسبوك">
+          {% post_to_facebook  object_or_url "<i class='fab fa-facebook-f'></i>" %}
+        </button>
+        <button class="main-btn center">
+          <i class='fab fa-instagram'></i>
+        </button>
+      </div>
+    </div>
+
+    <h2 class="title">Simeler Products</h2>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+  <div class="galery_card">
+
+    <div class="card_image" id="img-container" {% if prod.image.count < 2 %} style="width: 100%;" {% endif %}>
+      <div id="lens"></div>
+      <div class="img pr">
+
+        <img src="{{prod.image.all.0.image.url}}" id="featured" alt="">
+      </div>
+    </div>
+    {% if prod.image.count > 1 %}
+    <div class="card_imgs">
+      {% for img in prod.image.all %}
+      <div class="pr card_imgs_child {% if forloop.first %} active {%endif%}">
+
+        <img class="cover" src="{{img.image.url}}" />
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+
+
+</main>
+
+
+{% if products %}
+<section class="section more-like-section m-scroll" id="simeler" >
+  <div class="splide simeler">
+
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for prod in products %}
+        <li class="splide__slide">
+          <div class="box" data-cat="{{prod.category.id}}">
+            {% if request.user.is_authenticated  and not request.user.is_superuser %}
+            <div class="save-btn center" data-action="{% url 'save_product' user.customer.id prod.id %}">
+              {% if prod in user.customer.saved.all  %}
+              <i class="fa fa-heart"></i>
+              {%  else  %}
+              <i class="far fa-heart"></i>
+              {% endif %}
+            </div>
+            {% endif %}
+            <a href="{% url 'product' prod.slug %}">
+
+              <div class="image">
+                <img src="{{prod.image.all.0.image.url}}" alt="" />
+                <img class="scend-img" src="{{prod.image.all.1.image.url}}" alt="" />
+              </div>
+
+              <div class="content">
+                <h3>{{prod.title}}</h3>
+                <div class="price">
+                  {% if prod.discount %}
+                  <p class="amount">{{prod.price}} DH</p>
+                  <p class="cut">{{prod.oldprice}} DH</p>
+                  <div class="offer center">-{{prod.discount|floatformat:0}}%</div>
+                  {% else %}
+                  <p class="amount">{{prod.price}} DH</p>
+
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="title">reviews</h2>
+</section>
+{% endif %}
+<div id="reviews" class="m-scroll">
+<section class="reviews-section {% if not num  %} hide {% endif %}" >
+  <div class="reviews">
+
+    {% for r in prod.riviews.all %}
+    <div class="review">
+      <div class="stars f-start m-{{r.rate}}">
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <h4>{{r.title}}</h4>
+      <p>{{r.content}}</p>
+      <p class="date">{{r.created_at|date:'Y-m-j'}} <span>By {{r.customer.customer.full_name}}</span></p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="add-review-section">
+    <div class="ratings">
+      <div class="rating" id="rating-5">
+        <h4><i class="far fa-star"></i> 5</h4>
+        <div class="bar" style="--w:{{ratings.5.1}}%"></div>
+        <div class="count">{{ratings.5.0}}</div>
+      </div>
+      <div class="rating" id="rating-4">
+        <h4><i class="far fa-star"></i> 4</h4>
+        <div class="bar" style="--w:{{ratings.4.1}}%"></div>
+        <div class="count">{{ratings.4.0}}</div>
+      </div>
+      <div class="rating" id="rating-3">
+        <h4><i class="far fa-star"></i> 3</h4>
+        <div class="bar" style="--w:{{ratings.3.1}}%"></div>
+        <div class="count">{{ratings.3.0}}</div>
+      </div>
+      <div class="rating" id="rating-2">
+        <h4><i class="far fa-star"></i> 2</h4>
+        <div class="bar" style="--w:{{ratings.2.1}}%"></div>
+        <div class="count">{{ratings.2.0}}</div>
+      </div>
+      <div class="rating" id="rating-1">
+        <h4><i class="far fa-star"></i> 1</h4>
+        <div class="bar" style="--w:{{ratings.1.1}}%"></div>
+        <div class="count">{{ratings.1.0}}</div>
+      </div>
+    </div>
+    <div class="add-review">
+      <h3>{{total_rate|floatformat:1}}</h3>
+      <div class="stars rate" style="--w:{{total_persntage|floatformat:1}}%">
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p><span id="reviews_len">{{num}}</span> reviews</p>
+      {% if request.user.is_authenticated  %}
+      <div class="btn" onclick="showReviewForm()">Write a review</div>
+      {% else %}
+      <div class="btn" onclick="showindow(0)">Write a review</div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+<section class="vide-reviews {% if num %} hide {% endif %}" >
+  <p>There are no reviews.</p>
+
+  <p>Be the first to
+    {% if request.user.is_authenticated  %}
+    <span onclick="showReviewForm() ">Write a review</span>
+    {% else %}
+    <span onclick="showindow(0)">Write a review</span>
+    {% endif %}
+  </p>
+
+</section>
+</div>
+<div class="rate-form">
+  <div class="space_between head">
+    <h4>Rate Us</h4>
+    <div class="close center" id="close-rate-form"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+        viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+          d="M368 368L144 144m224 0L144 368"></path>
+      </svg></div>
+  </div>
+  <div class="product f-start">
+    <img src="{{prod.image.all.0.image.url}}" alt="">
+    <div>
+      <h2>{{prod.title}}</h2>
+      <p class="price"> $ {{prod.price}}</p>
+      <div class="f-start">
+        <div class="stars rate" style="--w:90%">
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <span>4 reviews</span>
+      </div>
+    </div>
+  </div>
+  <form class="form" id="rate_form">
+
+    <div class="f-start rate-star">
+      <h4>Quality</h4>
+      <p class="stars f-start" id="">
+        <i class="far fa-star" id="1"></i>
+        <i class="far fa-star" id="2"></i>
+        <i class="far fa-star" id="3"></i>
+        <i class="far fa-star" id="4"></i>
+        <i class="far fa-star" id="5"></i>
+      </p>
+    </div>
+    <p>
+      <label for="title">Review Title</label>
+      <input type="text" id="review_title" placeholder="Look great">
+    </p>
+    <p>
+      <label for="content">Review Content</label>
+      <textarea id="review_content" placeholder="Write something"></textarea>
+    </p>
+    <div class="alert"></div>
+    <button type="submit">Submit your riview</button>
+  </form>
+</div>
+
+<script>
+  new Splide('.splide.simeler', {
+    gap: "15px",
+    drag: "free",
+    padding: {
+      left: 30,
+      right: 30
+    },
+    pagination: false,
+  }).mount();
+
+  document
+    .getElementById("img-container")
+    .addEventListener("mouseover", function () {
+      imageZoom("featured");
+    });
+
+  function imageZoom(imgID) {
+    let img = document.getElementById(imgID);
+    let lens = document.getElementById("lens");
+
+    lens.style.backgroundImage = `url( ${img.src} )`;
+
+    let ratio = 3;
+
+    lens.style.backgroundSize =
+      img.width * ratio + "px " + img.height * ratio + "px";
+
+    img.addEventListener("mousemove", moveLens);
+    lens.addEventListener("mousemove", moveLens);
+    img.addEventListener("touchmove", moveLens);
+
+    function moveLens() {
+      let pos = getCursor();
+
+      let positionLeft = pos.x - lens.offsetWidth / 2;
+      let positionTop = pos.y - lens.offsetHeight / 2;
+
+      if (positionLeft < 0) {
+        positionLeft = 0;
+      }
+
+      if (positionTop < 0) {
+        positionTop = 0;
+      }
+
+      if (positionLeft > img.width - lens.offsetWidth / 3) {
+        positionLeft = img.width - lens.offsetWidth / 3;
+      }
+
+      if (positionTop > img.height - lens.offsetHeight / 3) {
+        positionTop = img.height - lens.offsetHeight / 3;
+      }
+
+      //3
+      lens.style.left = positionLeft + "px";
+      lens.style.top = positionTop + "px";
+
+      //4
+      lens.style.backgroundPosition =
+        "-" + pos.x * ratio + "px -" + pos.y * ratio + "px";
+    }
+
+    function getCursor() {
+      let e = window.event;
+      let bounds = img.getBoundingClientRect();
+
+      let x = e.pageX - bounds.left;
+      let y = e.pageY - bounds.top;
+      x = x - window.pageXOffset;
+      y = y - window.pageYOffset;
+
+      return {
+        x: x,
+        y: y,
+      };
+    }
+  }
+
+  const clrbtns = document.querySelectorAll(".card .clr");
+  const addBtn = document.getElementById("add");
+  const subBtn = document.getElementById("sub");
+  const input = document.getElementById("qty");
+  clrbtns.forEach((clr) => {
+    clr.addEventListener("click", () => {
+      clrbtns.forEach((clr) => {
+        clr.classList.remove("select");
+      });
+      clr.classList.add("select");
+    });
+  });
+  addBtn.addEventListener("click", () => {
+    if (input.value < 4) {
+      input.value = parseInt(input.value) + 1;
+    }
+  });
+
+  subBtn.addEventListener("click", () => {
+    if (input.value > 1) {
+      input.value = parseInt(input.value) - 1;
+    }
+  });
+
+  const card_images = document.querySelectorAll(".card_imgs .card_imgs_child ");
+  card_images.forEach((img) => {
+    img.addEventListener("click", (e) => {
+      const src = e.target.querySelector("img").src;
+      card_images.forEach((img) => {
+        img.classList.remove('active')
+      })
+      e.target.classList.add('active')
+
+      document.getElementById("featured").src = src;
+    });
+  });
+  const add_prod_button = document.getElementById('add-button')
+
+  function add_product() {
+
+    const qty = $("#qty").val();
+    const id = $("#add-button").val();
+    const img = document.getElementById("featured").src;
+    const title = document.getElementById("title").innerHTML;
+    const price = parseFloat(document.getElementById("card-price").textContent);
+  
+    const clr = $(".card__color .clr.select").data("clr") || null;
+
+
+
+
+    const size = $("#size option:selected").val() || null;
+    const parent = document.querySelector(".product-list");
+
+    let tr;
+    $.ajax({
+      type: "POST",
+      url: '{% url "basket_add" %}',
+      data: {
+        productid: $("#add-button").val(),
+        productqty: $("#qty").val(),
+        productcolor: clr,
+        productsize: size,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        document.getElementById("shoping-btn-qty").innerHTML = json.qty;
+        if (document.querySelector(`.product-list #tr${id}`)) {
+          tr = document.querySelector(`.product-list #tr${id}`);
+        } else {
+          tr = document.createElement("div");
+          tr.classList.add("product-item");
+          tr.setAttribute("id", "tr" + id);
+        }
+        const colorHtml = clr ? `<span class="clr-cont center select">
+                <span class="clr" style="--i:  ${clr};"></span></span>` : ""
+        tr.innerHTML = ` <div class="image">
+                <span class="qty">${qty}</span>
+                <img src="${img}" alt="" />
+            </div>
+            <div class="info">
+              <div class="space_between">
+                <p>${title}</p>
+                <p class="blue"><span>DH </span> <span id="total_price">${(price * qty).toFixed(2)}</span></p>
+              </div>
+              <p class="small"><span>DH </span> <span class="pruduct-price">${price.toFixed(2)}</span></p>
+              <div class="center s_c">
+                ${size ? "<span class='size'>"+ size +"</span>" : ""}
+                ${colorHtml}
+              </div>
+              <div class="card__counter space_between">
+                <button class="card__numb sub" id="basket-sub-{{prod.id}}" data-id="{{prod.id}}"
+                  onclick="update_qty(this)">-</button>
+                <input type="number" class="card__count" value="${qty}" id="basket-qty-{{prod.id}}" maxlength="1">
+                <button class="card__numb add" id="basket-add-{{prod.id}}" data-id="{{prod.id}}"
+                  onclick="update_qty(this)">+</button>
+              </div>
+              <div class="delet" data-id="{{prod.id}}" onclick="delete_prod(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+              </div>
+            </div>
+
+            `;
+        if (!document.querySelector(`.product-list #tr${id}`)) {
+          parent.insertBefore(tr, parent.firstChild);
+        }
+
+        const allprod = document.querySelectorAll(
+          ".product-list .product-item"
+        );
+        console.log(allprod);
+        let total = 0;
+        allprod.forEach((el) => {
+          total += parseFloat(el.querySelector("#total_price").innerText);
+
+        });
+
+        document.getElementById("order-total").innerHTML = total.toFixed(2);
+        document.getElementById("order-subtotal").innerHTML = json.total;
+        document.querySelector(".shoping-btn").click()
+
+
+      },
+
+      error: function (xhr, errmsg, err) {
+
+      },
+    });
+
+  }
+  add_prod_button.addEventListener('click', add_product);
+
+</script>
+{% if request.user.is_authenticated  %}
+<script>
+  function showReviewForm() {
+    document.querySelector(".rate-form").classList.add("show")
+  }
+  document.getElementById('close-rate-form').addEventListener('click', () => {
+    document.querySelector(".rate-form").classList.remove("show")
+  })
+  const stars = document.querySelectorAll('.rate-star i')
+  const stars_cont = document.querySelector('.rate-star .stars')
+  let rate = 0
+  stars.forEach((el) => {
+    el.addEventListener('click', () => {
+      stars_cont.classList = []
+      stars_cont.classList.add("stars", "f-start", `m-${el.id}`)
+      rate = parseInt(el.id)
+    })
+  })
+  const loadere = document.getElementById('loade-animation')
+  const mess = document.querySelector(' #rate_form .alert')
+  $(document).on("submit", "#rate_form", function (e) {
+
+    console.log('yes');
+    e.preventDefault();
+    const title = $("#review_title").val()
+    const content = $("#review_content").val()
+    $.ajax({
+      type: "POST",
+      url: '{% url "add_review" prod.id %}',
+      data: {
+        title: title,
+        content: content,
+        rate: rate,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+
+        message(json.message, json.type, mess)
+
+        loadere.classList.remove('show')
+
+        if (json.type == "success") {
+          document.querySelector('.vide-reviews').classList.add("hide")
+          document.querySelector('.reviews-section').classList.remove("hide")
+          document.querySelector('.reviews-section .reviews').innerHTML += `
+          <div class="review">
+            <div class="stars f-start m-${rate}">
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <h4>${title}</h4>
+            <p>${content}</p>
+            <p class="date">Postin <span>By {{user.customer.full_name}}</span></p>
+          </div>
+          `
+          if (rate > 0) {
+            const reviews_len = document.getElementById("reviews_len")
+            const ratingcount = document.querySelector(`#rating-${rate} .count`)
+            const count = 1 + parseInt(ratingcount.innerHTML)
+            const ratingbar = document.querySelector(`#rating-${rate} .bar`)
+            const len = 1 + parseInt(reviews_len.innerHTML);
+            ratingcount.innerHTML = count
+            ratingbar.style = "--w:" + (count / len * 100) + "%"
+            reviews_len.innerHTML = len
+
+          }
+
+          setTimeout(() => {
+            document.querySelector(".rate-form").classList.remove("show")
+          }, 2000);
+
+        }
+
+      },
+      error: function (xhr, errmsg, err) {
+
+        message('There is a problem, please try again.', 'error', mess)
+      },
+    });
+  });
+
+</script>
+
+{% endif %}
+
+{% endblock %}

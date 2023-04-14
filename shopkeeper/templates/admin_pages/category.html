@@ -1,0 +1,78 @@
+{% extends 'admin_pages/admin_page.html'%}  {% load static %}
+{% block adminnav %} 
+    <div class="sidebar-button">
+      <span class="dashboard">Categories</span>
+    </div>
+    <div class="links f-start">
+        <a href="{% url 'admin-page' %}">
+        <i class="fa fa-home"></i></a>
+        {%if main %}
+        <span>/</span> <a href="{% url 'main-category'  %}">Categories</a> <span>/</span> <a href="{% url 'sub-categories' main|slugify %}">{{main}}</a>
+        {% endif %}
+        {%if sub %}
+        <span>/</span> <a href="{% url 'categories' main|slugify sub|slugify %}">{{sub}}</a>
+        {% endif %}
+        
+    </div>
+
+{% endblock %}
+{% block admincontent %}
+<style>
+    #categories {
+      color: #fda090 !important;
+    }
+</style>
+
+<div class="tabel-header">
+    <form class="search-box space_between">
+        <input type="text" placeholder="Search..." name="q">
+        <button type="submit" class='fa fa-search btn-search'></button>
+      </form>
+      <div class="f-start">
+    <div class="delete-btn center" id="delete_icon"  data-type="Categories">
+      <i class="fa-solid fa-trash-can"></i>
+    </div>
+    <div id="selectAll" class="center nav_btn"><i class="fa fa-list-check"></i></div>
+    <a href="{% url 'add-main-category' %} " class="center nav_btn"><i class="fa-regular fa-square-plus"></i></a>
+</div>
+</div>
+   <div class="scroll-x scrollbar box m-10">
+
+   
+    <table id="category-table" class="table">
+        
+            {% for cat in qwery %}
+                <tr href="{% url 'main-category' %}" class="child" id="tr-{{cat.id}}">
+                       
+                        <td style="width: 30px;">
+                            <input type="checkbox" name="catgories" class="checkbox-btn" value="{{cat.id}}" />
+                        </td>
+                        <td class="name">
+                          <a class="name"  href="{{cat.link}}">{{cat.name}} </a>
+                        </td>
+                        
+                        
+                        <td><a href="{{cat.edit}}" class="btn" >Edit</a></td>
+                        <td><button class="btn danger delete_btn" >Delete</button></td>
+                      </tr>
+            
+            {% endfor %}
+        
+    </table>
+   
+  
+  </div>
+
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/delete.js'%}"></script>
+<script>
+    $(document).ready(function() {
+        $("#delete_btn").click(function() {
+          delete_items("{% url 'main-category' %}","{{ csrf_token }}", 'category-table' )
+
+        })
+      })
+      
+</script>
+{% endblock script %}

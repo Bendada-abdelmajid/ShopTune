@@ -1,0 +1,80 @@
+{% load static %}
+
+<script>
+  const loadere = document.getElementById('loade-animation')
+  function seepassWord(e) {
+  if (e.classList.contains('fa-eye')) {
+    e.parentElement.querySelector('input').type = "text"
+    e.classList.replace('fa-eye', "fa-eye-slash")
+  } else {
+    e.parentElement.querySelector('input').type = "password"
+    e.classList.replace("fa-eye-slash", 'fa-eye')
+  }
+}
+  function showindow(e) {
+    document.querySelector('.popup').classList.add('show')
+    document.querySelectorAll(`.register-model .col`).forEach((el) => { el.classList.remove('show')})
+    
+    document.querySelector('.register-model .col' + e).classList.add('show')
+    
+    document.querySelectorAll(`.registration_linkks .link`).forEach((el) => { el.classList.remove('active-link')})
+    document.querySelector(`.link[data-id="${e}"]`).classList.add('active-link')
+  }
+  const closePopup= () => { 
+    document.querySelector('.popup').classList.remove('show') }
+  function login_success() {
+    document.location = '{% url "home" %}'
+  }
+
+</script>
+<div class= "overlay" onclick="closePopup()"></div>
+<div class="register-model userAuthIcons">
+   <div class="info">
+     <div class="f-start">
+      <i class="userAuthIcons"></i>
+      <div>
+        <h4>MANAGE YOUR ORDERS</h4>
+        <p>Track orders, manage cancellations & returns.</p>
+      </div>
+     </div>
+     <div class="f-start">
+      <i class="userAuthIcons saved"></i>
+      <div>
+        <h4>SHORTLIST ITEMS YOU LOVE</h4>
+        <p>Keep items you love on a watchlist.</p>
+      </div>
+     </div>
+     <div class="f-start">
+      <i class="userAuthIcons noti"></i>
+      <div>
+        <h4>AWESOME OFFERS UPDATES FOR YOU</h4>
+        <p>Be first to know about great offers and save.</p>
+      </div>
+     </div>
+   </div>
+  <div class="popup-content center" style="flex-direction: column;">
+      
+      <div class="head space_between">
+        <div class="f-start registration_linkks">
+          <button data-id="0" onclick="showindow(0)" type="button" class="link">login</button>
+          <button data-id="1" onclick="showindow(1)" type="button" class="link">sign up</button>
+        </div>
+        <div class="close_btn" onclick="closePopup()">
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 8.707l3.646 3.647.708-.707L8.707 8l3.647-3.646-.707-.708L8 7.293 4.354 3.646l-.707.708L7.293 8l-3.646 3.646.707.708L8 8.707z"></path></svg>
+        </div>
+      </div>
+
+      <div class="col col0">
+        {% include 'registration/login.html' %}
+      </div>
+      <div class="col col1">
+        {% include 'registration/sing_up.html' %}
+      </div>
+    
+  </div>
+
+</div>
+
+
+
+</div>

@@ -1,0 +1,33 @@
+{% load static %}
+<div class="splide offers main"  aria-label="Splide Basic HTML Example">
+    <div class="title">Big Discount</div>
+    <div class="splide__track">
+          <ul class="splide__list">
+            {% for prod in offer_prods %}
+           
+            <li class="splide__slide" style="--img: url({{ prod.image.all.0.image.url}});" >
+            
+                  <img class="splide-img" src="{{prod.image.all.0.image.url}}"/>
+                  
+                  
+              
+              
+              <div class="content">
+                  
+                      
+                  <h3>Discount up to</h3>
+                  <h1>{{prod.discount|floatformat:0}}%</h1>
+                  <p >{{prod.title}}</p>
+     
+                  <a href="#" class="btn"><span>Puy Now <i class="fa fa-fire"></i></span></a>
+              </div>
+  
+            </li>
+            {% endfor %}
+          </ul>
+    </div>
+  </div>
+
+  <script>
+    new Splide( '.splide.offers' ).mount();
+</script>

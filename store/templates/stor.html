@@ -1,0 +1,89 @@
+{% extends 'base.html'%} {% load static %} {% block style %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="{% static '/css/stor.css'%}" />
+
+<script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-intersection@0.2.0/dist/js/splide-extension-intersection.min.js "></script>
+<script type="module" src="{% static '/js/slide.js'%}"></script>
+{% endblock %} {% block content %}
+<svg class="icon--arrow-right">
+  <use xlink:href="#icon-arrow-right">
+    <symbol
+      id="icon-arrow-right"
+      viewBox="0 0 79 79"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M79 39.5C79 61.3152 61.3152 79 39.5 79C17.6848 79 0 61.3152 0 39.5C0 17.6848 17.6848 0 39.5 0C61.3152 0 79 17.6848 79 39.5Z"
+        fill="black"
+      ></path>
+      <path
+        d="M33.5736 29.2304C33.3863 29.3361 33.2222 29.5192 33.1211 29.7916C32.8841 30.428 32.9902 31.3156 33.4692 31.6749C36.441 33.9104 39.4742 35.9722 42.4725 38.1302C42.8371 38.3932 43.2001 38.6562 43.5614 38.9239C40.2333 41.4624 36.8338 43.813 33.5322 46.4219C32.6935 47.0841 33.0714 49.1717 34.0228 48.9885C36.983 48.4155 37.5382 47.4927 43.3277 44.447C43.8532 44.1699 45.9515 42.6623 46.3907 42.1692C46.7769 41.7371 47.183 41.3074 47.5327 40.8166C48.0896 40.037 48.151 38.8464 47.6935 37.9471C47.3769 37.3224 45.9084 36.2704 45.4476 35.8712C43.6808 34.3425 41.5907 33.058 40.4968 32.4193C38.3272 31.1466 36.5355 30.2754 34.3476 29.066C34.0957 28.9275 33.8073 29.0167 33.5736 29.2304Z"
+        fill="white"
+      ></path>
+    </symbol>
+  </use>
+</svg>
+<div class="hero">{% include 'slide.html' %} {% include 'offers.html' %}</div>
+
+<div class="best">
+  <div class="space_between head">
+    <h2>Best Saller</h2>
+    <a href="/" class="view-all">View all</a>
+  </div>
+  
+  
+  <div class="splide btns" id="best-saller-btn" aria-labelledby="carousel-heading">
+    <div class="splide__track">
+        <ul class="splide__list">
+           <li class="splide__slide">
+            <button id="all" class="btn active">all Products</button>
+            </li>
+            {% for item in cats %}
+            <li class="splide__slide">
+              <button id="{{item.id}}" class="btn">{{item.name}}</button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+  {% include 'boxs.html' %}
+</div>
+<script>
+  new Splide( '#best-saller-btn' , {
+        gap:"15px",
+        arrows:false,
+        drag:"free",
+        pagination:false,
+        }).mount( )
+  const btns = document.querySelectorAll("#best-saller-btn .btn");
+  const products = document.querySelectorAll(".box");
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btns.forEach((el) => {
+        el.classList.remove("active");
+      });
+      btn.classList.add("active");
+      
+      products.forEach((prod) => {
+        if(btn.id =="all"){
+          prod.classList.remove("hide");
+        }
+        else{
+          if (prod.dataset.cat == btn.id) {
+          prod.classList.remove("hide");
+        } else {
+          prod.classList.add("hide");
+        }
+        } 
+      });
+    });
+  });
+</script>
+
+{% endblock %}

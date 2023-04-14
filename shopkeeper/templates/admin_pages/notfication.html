@@ -1,0 +1,797 @@
+{% load static %}
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+	xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+	<!--[if gte mso 9]>
+	<xml>
+		<o:OfficeDocumentSettings>
+		<o:AllowPNG/>
+		<o:PixelsPerInch>96</o:PixelsPerInch>
+		</o:OfficeDocumentSettings>
+	</xml>
+	<![endif]-->
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="format-detection" content="date=no" />
+	<meta name="format-detection" content="address=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="x-apple-disable-message-reformatting" />
+	<!--[if !mso]><!-->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+	<!--<![endif]-->
+	<title>{{SUBJECT}}</title>
+
+
+
+	<style type="text/css" media="screen" dir="rtl">
+		/* Linked Styles */
+		body {
+			margin: 0 !important;
+			display: block !important;
+			min-width: 100% !important;
+			width: 100% !important;
+			background: #1d1d1d;
+			-webkit-text-size-adjust: none;
+			font-family: 'Poppins', sans-serif !important;
+
+		}
+
+		a {
+			color: #ffffff;
+			text-decoration: none
+		}
+
+		p {
+			padding: 0 !important;
+			margin: 0 !important
+		}
+
+		img {
+			-ms-interpolation-mode: bicubic;
+			/* Allow smoother rendering of resized image in Internet Explorer */
+		}
+
+		.mcnPreviewText {
+			display: none !important;
+		}
+
+		.auto_center {
+			margin: 0 auto !important;
+		}
+
+		.dreamShop-btn-1,
+		.dreamShop-btn-2 {
+			transition: 0.3s ease;
+		}
+
+		.dreamShop-btn-1:hover {
+			background: transparent !important;
+			border: 2px solid #000 !important;
+
+		}
+
+		.dreamShop-btn-2:hover span,
+		.dreamShop-btn-1:hover span {
+
+			color: #000 !important;
+		}
+
+		.dreamShop-btn-2:hover {
+			background: #fff !important;
+		}
+
+		/* Mobile styles */
+		@media (max-device-width: 670px),
+		(max-width: 670px) {
+			.mobile-shell {
+				width: 100% !important;
+				min-width: 100% !important;
+			}
+
+			.m-center {
+				text-align: center !important;
+			}
+
+			.auto_center {
+				margin: 0 auto !important;
+			}
+
+			.td {
+				width: 100% !important;
+				min-width: 100% !important;
+			}
+
+			.m-br-15 {
+				height: 15px !important;
+			}
+
+			.m-td,
+			.m-hide {
+				display: none !important;
+				width: 0 !important;
+				height: 0 !important;
+				font-size: 0 !important;
+				line-height: 0 !important;
+				min-height: 0 !important;
+			}
+
+			.m-block {
+				display: block !important;
+			}
+
+			.m-auto {
+				height: auto !important;
+			}
+
+			.fluid-img img {
+				width: 100% !important;
+				max-width: 100% !important;
+				height: auto !important;
+			}
+
+			.bg {
+				-webkit-background-size: cover !important;
+				background-size: cover !important;
+				background-repeat: none !important;
+				background-position: center 0 !important;
+			}
+
+			.p20-15 {
+				padding: 20px 15px !important;
+			}
+
+			.p30-15 {
+				padding: 30px 15px !important;
+			}
+
+			.p30-15-0 {
+				padding: 30px 15px 0px 15px !important;
+			}
+
+			.pb-30 {
+				padding-bottom: 30px !important;
+			}
+
+			.pb-30-0 {
+				padding: 30px 0px !important;
+			}
+
+			.nopt {
+				padding-top: 0px !important;
+			}
+
+			.nobb {
+				border-bottom: none !important;
+			}
+
+			.nop {
+				padding: 0 !important;
+			}
+
+			.content {
+				padding: 30px 15px !important;
+			}
+
+			.bt150 {
+				border-top: 30px solid #ffffff !important;
+			}
+
+			.entry {
+				padding-bottom: 30px !important;
+			}
+
+			.pb60m {
+				padding-bottom: 0px !important;
+			}
+
+			.separator {
+				padding-top: 30px !important;
+			}
+
+			.box-card {
+				padding: 30px 15px !important;
+				background-color: transparent;
+			}
+
+			.box2 {
+				padding: 30px 15px !important;
+			}
+
+			.pb60 {
+				padding-bottom: 30px !important;
+			}
+
+			.h2 {
+				font-size: 44px !important;
+				line-height: 48px !important;
+			}
+
+			.title {
+				font-size: 24px !important;
+				line-height: 28px !important;
+			}
+
+			.m-list {
+				font-size: 18px !important;
+				line-height: 22px !important;
+			}
+
+			.text-footer {
+				text-align: center !important;
+			}
+
+			.column,
+			.column-top,
+			.column-dir,
+			.column-empty,
+			.column-empty2,
+			.column-bottom,
+			.column-dir-top,
+			.column-dir-bottom {
+				float: left !important;
+				width: 100% !important;
+				display: block !important;
+			}
+
+			.column-empty {
+				padding-bottom: 10px !important;
+			}
+
+			.column-empty2 {
+				padding-bottom: 30px !important;
+			}
+
+			.content-spacing {
+				width: 15px !important;
+			}
+
+		}
+	</style>
+</head>
+
+<body class="body"
+	style="margin:0 !important; display:block !important; min-width:100% !important; width:100% !important; background:#1d1d1d; -webkit-text-size-adjust:none; padding:0 !important;">
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="f6f6f8" dir="rtl">
+		<tr>
+			<td align="center" valign="top">
+				<!-- Header -->
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#282828" dir="rtl">
+					<tr>
+						<td align="center" class="p30-15" style="padding: 12px 0px 12px 0px;">
+							<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+								<tr>
+									<td class="td"
+										style="width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<th class="column-top" width="325"
+													style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
+													<table width="100%" border="0" cellspacing="0" cellpadding="0">
+														<tr>
+															<td align="right">
+																<table class="auto_center" border="0" cellspacing="0"
+																	cellpadding="0" style="text-align:center;">
+																	<tr>
+																		<td class="img" width="20"
+																			style="font-size:0pt; line-height:0pt; text-align:left;">
+																			<img src="{% static '/noti_img/small_sep.jpg' %}"
+																				width="15" height="1" mc:edit="image_2"
+																				style="max-width:15px;" border="0"
+																				alt="" /></td>
+																		<td class="text-header"
+																			style="color:#979797; font-family: 'Poppins', sans-serif; font-size:12px; line-height:16px; text-align:left; padding: 0 5px;">
+																			<div mc:edit="text_2"><a class="link2"
+																					target="_blank"
+																					href="{% url 'home' %}"
+																					style="color:#979797; text-decoration:none;">Go to site</a>
+																					</div>
+																		</td>
+																		<td class="img" width="20"
+																			style="font-size:0pt; line-height:0pt; text-align:left;">
+																			<img src="{% static '/noti_img/small_sep.jpg' %}"
+																				width="15" height="1" mc:edit="image_2"
+																				style="max-width:15px;" border="0"
+																				alt="" /></td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</th>
+
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<!-- Logo + Socials Icons -->
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" dir="rtl">
+					<tr>
+						<td class="td"
+							style="width:650px; min-width:650px; font-size:0pt;  padding:20px; margin:0; font-weight:normal;">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 650px;"
+								class="auto_center">
+								<tr>
+									<th class="column" style="padding:0; margin:0; font-weight:normal;">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0"
+											class="auto_center" style="max-width: 650px;">
+											<tr>
+												<td align="right">
+													<table border="0" cellspacing="0" cellpadding="0"
+														style="text-align:right;">
+														<tr>
+															{% if profile.tiktok %}
+															<td class="img" width="36"
+																style="font-size:0pt; line-height:0pt; text-align:left;">
+																<a href="{{profile.tiktok }}" target="_blank" style="font-size: 22px;">
+																	<img
+																		src="https://cdn-icons-png.flaticon.com/512/3116/3116491.png"
+																		width="22" height="20" mc:edit="image_23"
+																		style="max-width:22px;" border="0" alt="" />
+																</a>
+															</td>
+															{% endif %}
+															{% if profile.facebook %}
+															<td class="img" width="36"
+																style="font-size:0pt; line-height:0pt; text-align:left;">
+
+
+																<a href="{{profile.facebook }}" target="_blank" style="font-size: 22px;">
+																	<img
+																		src="https://cdn-icons-png.flaticon.com/512/3669/3669678.png"
+																		width="22" height="20" mc:edit="image_23"
+																		style="max-width:22px;" border="0" alt="" />
+																</a>
+
+
+
+															</td>
+															{% endif %}
+															{% if profile.instagram %}
+															<td class="img" width="36"
+																style="font-size:0pt; line-height:0pt; text-align:left;">
+																<a href="{{profile.instagram }}" target="_blank" style="font-size: 22px;">
+																	<img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png"
+																	width="22" height="20" mc:edit="image_23"
+																	style="max-width:22px;" border="0" alt="" />
+																</a>
+															</td>
+															{% endif %}
+															
+
+
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</th>
+									<th class="column" width="200" style=" padding:0; margin:0; font-weight:normal;">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<!-- Logo -->
+												<td align="left" style="text-align:left;  font-size: 20px; ">
+													<a href="{% url 'home' %}" target="_blank" style="display: block;"> <strong style=" font-size: 20px;
+														letter-spacing: 1.2px;
+														white-space: nowrap;
+														margin: 0;
+														font-family: 'Poppins', sans-serif;
+														color: #222;">Dream Shop</strong>
+														
+													</a>
+												</td>
+												<!-- END Logo -->
+											</tr>
+										</table>
+									</th>
+
+
+								</tr>
+							</table>
+						</td>
+
+					</tr>
+				</table>
+				<!-- Logo + Socials Icons -->
+				<!-- END Header -->
+
+				<!-- Intro -->
+				<div mc:repeatable="Select" mc:variant="Intro">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" dir="rtl">
+						<tr>
+							<td align="center">
+								<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+									<tr>
+										<td class="td"
+											style="width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tr>
+													<td background="{% static '/noti_img/free_bg.jpg' %}"
+														bgcolor="#a3854b" valign="top" height="420" class="bg">
+
+														<div>
+															<table width="100%" border="0" cellspacing="0"
+																cellpadding="0">
+																<tr>
+																	<td class="content-spacing" width="30"
+																		style="font-size:0pt; line-height:0pt; text-align:left;">
+																	</td>
+																	<td style="padding: 40px 0px;" class="p30-0">
+																		<table width="100%" border="0" cellspacing="0"
+																			cellpadding="0">
+																			<tr>
+																				<td class="box1" bgcolor="#ffffff"
+																					align="center"
+																					style="padding:45px 30px;">
+																					<table border="0" cellspacing="0"
+																						cellpadding="0">
+
+																						
+																						<tr>
+																							<td class="h2 center pb20"
+																								 style="color:#000000;font-size: 36px;
+																								line-height: normal;font-family: 'Poppins', sans-serif;
+																							
+																								text-align: center;
+																								padding-bottom: 20px;">
+																								
+																								<h3 mc:edit="text_5" id="notifi-title"  style="color:#000000; font-size: 36px; font-weight: 600;">
+																									{% if h2 %}
+																									{{h2}}
+																									{% else %}
+																									Title
+																								{% endif %}
+																								</h3>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td class="text4 center pb30"
+																								
+																								style="color:#979797; font-family: 'Poppins', sans-serif; font-size:20px; line-height:24px; text-align:center; padding-bottom:30px;">
+																								<p mc:edit="text_6"  id="notifi-discription">
+																									{% if p %}
+																									{{p}}
+																									{% else %}
+																									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut delectus consectetur est perferendis doloribus tempore commodi quam. Quidem excepturi voluptates libero error quod animi ea exercitationem itaque? Dolor, quibusdam exercitationem!
+																									{% endif %}
+																								</p>
+																							</td>
+																						</tr>
+																						<!-- Button -->
+																						<tr>
+																							<td align="center">
+																								<table width="140"
+																									border="0"
+																									cellspacing="0"
+																									cellpadding="0">
+																									<tr>
+																										<td class="text-button black-button dreamShop-btn-1"
+																											style="font-family: 'Poppins', sans-serif; font-size:15px; line-height:16px; text-align:center; text-transform:uppercase; border:2px solid #ffffff; padding:12px 20px; background:#000000; color:#ffffff;">
+																											<div
+																												mc:edit="text_7">
+																												<a href="#"
+																													target="_blank"
+																													class="link-white"
+																													style="color:#ffffff; text-decoration:none;"><span
+																														class="link-white "
+																														style="color:#ffffff; text-decoration:none;">Shop naw
+																														</span></a>
+																											</div>
+																										</td>
+																									</tr>
+																								</table>
+																							</td>
+																						</tr>
+																						<!-- END Button -->
+																					</table>
+																				</td>
+																			</tr>
+																		</table>
+																	</td>
+																	<td class="content-spacing" width="30"
+																		style="font-size:0pt; line-height:0pt; text-align:left;">
+																	</td>
+																</tr>
+															</table>
+														</div>
+														<!--[if gte mso 9]>
+															</v:textbox>
+															</v:rect>
+														<![endif]-->
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- END Intro -->
+
+				<!-- Offers -->
+				<div mc:repeatable="Select" mc:variant="Offers">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" style="padding: 60px 0px 60px 0px;" class="p30-15">
+								<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+									<tr>
+										<td class="td"
+											style="width:660px; min-width:660px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tr>
+													<td class="pb40" align="center" style="padding-bottom:40px;">
+														<table border="0" cellspacing="0" cellpadding="0">
+															<tr>
+																<td class="img" width="60"
+																	style="font-size:0pt; line-height:0pt; text-align:left;">
+																	<div style="width: 65px; height: 1px; background-color: #222;"></div>
+																	<div style="width: 65px; height: 1px; background-color: #222;margin-top: 2px;"></div>
+																</td>
+																<td class="title white"
+																	style="font-family: 'Poppins', sans-serif;; font-size:30px; line-height:34px; text-align:left; color:#222; padding:0 5px;">
+																	<div mc:edit="text_8">Always choose the best</div>
+																	
+																</td>
+																<td class="img" width="60"
+																	style="font-size:0pt; line-height:0pt; text-align:left;">
+																	<div style="width: 65px; height: 1px; background-color: #222;"></div>
+																	<div style="width: 65px; height: 1px; background-color: #222;margin-top: 2px;"></div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<table width="100%" border="0" cellspacing="0" cellpadding="0">
+															<tr>
+
+																<th class="column-top" id="email-prods-container"
+																	style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
+																	{% for prod in prods %}
+																	<table width="210" border="0" cellspacing="0"
+																		cellpadding="0"
+																		style="display: inline-block;vertical-align: top; margin:0 5px 25px;">
+																		<tr>
+																			<td class="fluid-img center pb20"
+																				style="font-size:0pt; line-height:0pt; text-align:center; padding-bottom:20px;">
+																				<img src="{{prod.image.all.0.image.url}}"
+																					width="210" height="309" border="0"
+																					alt="" /></td>
+																		</tr>
+																		<tr>
+																			<td class="h4 center pb10"
+																				style="color:#222; font-family: 'Poppins', sans-serif; font-size:22px; line-height:28px; text-transform:uppercase; text-align:center; padding-bottom:10px;">
+																				<multiline>{{prod.title}}</multiline>
+																			</td>
+																		</tr>
+																		
+																		<tr>
+																			<td class="text2 center pb20" dir="ltr"
+																				style="color:#979797; font-family: 'Poppins', sans-serif; font-size:16px; line-height:24px; text-align:center; padding-bottom:20px;">
+																				<multiline dir="ltr"><strong
+																						class="yellow"
+																						style="color:#d1a24c;">{{prod.price}}
+																						DH</strong>
+																					&nbsp;
+																					{% if prod.discount %}
+																					<span class="old-price"
+																						style="text-decoration:line-through; font-size:14px; color:#979797;">{{prod.oldprice}}
+																						DH
+																					</span>
+
+
+
+																					{% endif %}
+
+																				</multiline>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="center">
+																				<table border="0" cellspacing="0"
+																					cellpadding="0">
+																					<tr>
+																						<td class="text-button text-button2 dreamShop-btn-2"
+																							style="color:#222; font-family: 'Poppins', sans-serif;; font-size:12px; line-height:16px; text-align:center; text-transform:uppercase; border:2px solid #222; padding:12px 30px;">
+																							<multiline><a href="#"
+																									target="_blank"
+																									class="link"
+																									style="color:#222; text-decoration:none;"><span
+																										class="link"
+																										style="color:#222; text-decoration:none;">
+																										Shop now
+																									</span></a>
+																							</multiline>
+																						</td>
+																					</tr>
+																				</table>
+																			</td>
+																		</tr>
+																	</table>
+																	{% endfor %}
+																</th>
+
+
+
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- END Offers -->
+
+				<!-- Contacts -->
+				<div mc:repeatable="Select" mc:variant="Contacts">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" dir="rtl">
+						<tr>
+							<td align="center" class="p30-15" style="padding: 0px 0px 30px 0px;">
+								<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+									<tr>
+										<td class="td"
+											style="width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tr>
+													<th class="column" width="310" bgcolor="f6f6f8"
+														style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+														<table width="100%" border="0" cellspacing="0" cellpadding="0">
+															<tr>
+																<td class="box-card" style="padding: 10px 30px;
+																	border: 1px solid #5a5a5a;
+																	height: 120px; ">
+																	<table width="100%" border="0" cellspacing="0"
+																		cellpadding="0">
+																		<tr>
+																			
+																			<td class="h5-4 left"
+																				style="color:#222; font-family: 'Poppins', sans-serif; font-size:20px; line-height:28px; text-transform:uppercase; text-align:left;">
+																				<div mc:edit="text_32">
+																					<h4>SUPPORT 24/7</h4>
+																					<a href="#" target="_blank"
+																							class="link"
+																							style="color:#222; text-decoration:none;"><span
+																								class="link"
+																								style="color:#222; text-decoration:none;">{{profile.phone}}</span></a>
+																					
+																					<span class="yellow" style="color: #d1a24c;
+																						text-align: right;
+																						margin-bottom: -10px;
+																						width: 100%;
+																						display: block;">Call us</span>
+																				</div>
+																			</td>
+																			<td class="img" width="75"
+																				style="font-size:50px; line-height:0pt; text-align:left;vertical-align: top; ">
+																				<img src="https://cdn-icons-png.flaticon.com/512/3930/3930266.png" mc:edit="image_19" style="max-width:70px;" alt="" width="55" height="55" border="0">
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</table>
+													</th>
+													<th class="column-empty" width="30"
+														style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+													</th>
+													<th class="column" width="310" bgcolor="f6f6f8"
+														style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+														<table width="100%" border="0" cellspacing="0" cellpadding="0">
+															<tr>
+																<td class="box-card" style="padding: 10px 30px;
+																	border: 1px solid #5a5a5a;
+																	height: 120px;">
+																	<table width="100%" border="0" cellspacing="0"
+																		cellpadding="0">
+																		<tr>
+
+																			<td class="h5-4 left"
+																				style="color:#222; font-family: 'Poppins', sans-serif; font-size:17px; line-height:28px; text-transform:uppercase; text-align:left;">
+																				<div mc:edit="text_31">
+																					<span>{{profile.address}}</span>
+																					<br />
+																					<span class="yellow" style="color:#d1a24c; 
+																						text-align: right;
+																						width: 100%;
+																						margin-bottom: -10px;
+																						display: block;">We wait for you</span>
+																				</div>
+																			</td>
+																			<td class="img" width="70"
+																				style="font-size:0pt; line-height:0pt; text-align:left; vertical-align: top; font-size: 50px;">
+																				<img src="https://cdn-icons-png.flaticon.com/512/3222/3222657.png" mc:edit="image_19" style="max-width:70px;" alt="" width="55" height="55" border="0">
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</table>
+													</th>
+
+
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- END Contacts -->
+
+				<!-- Footer -->
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#282828">
+					<tr>
+						<td align="center" class="p30-15" style="padding: 10px 0px;">
+							<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+								<tr>
+									<td class="td"
+										style="width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<th class="column" style="font-size:18px; line-height:normal; padding:0; margin:0; font-weight:normal;   padding: 10px;
+													margin: 0;
+													font-weight: normal;
+													color: #999;
+												  ">We welcome you to our website to enjoy shopping at any time and take advantage of the best products and prices
+
+												</th>
+
+
+
+											</tr>
+											<tr>
+												<th class="column" style="font-size:16px; line-height:normal; margin:0; font-weight:normal;   padding: 5px;
+													margin: 0;
+													font-weight: normal;
+													color: #999;
+												  ">
+													We are always waiting for you in our store from 9:00 to 22:00
+
+												</th>
+
+
+
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="f6f6f8">
+
+					<tr>
+						<td style="height:60px">
+
+						</td>
+					</tr>
+				</table>
+				<!-- END Footer -->
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

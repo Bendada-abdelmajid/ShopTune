@@ -1,0 +1,21 @@
+{% extends 'admin_pages/add.html'%}
+{% load static %}
+{% block forms %} 
+<style>
+    #add_sub_cat {
+      background: #fda090 !important;
+    }
+  </style>
+    
+    <div class="form box ">
+      <h1 class="form-title">Add Sub Categorie</h1>
+        <form method=POST enctype="multipart/form-data" id="cats_form">
+            <div class="form-content">
+                {% csrf_token %}
+                {{form.as_p}}
+                
+            </div>
+            <button type="submit" class="btn" style="--c:linear-gradient(315deg, #11b7f9 0%, #78beff 74%)">add</button>
+        </form>
+    </div>
+    {% endblock %}

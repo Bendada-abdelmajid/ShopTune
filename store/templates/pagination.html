@@ -1,0 +1,23 @@
+
+<div class="pagination space_between" >
+  
+  <ul class="center">
+    {% if products.has_previous %}
+    <li><a href="?page={{products.previous_page_number}}{% if q %}&q={{q}}{% endif %}{% if o %}&o={{o}}{% endif %}" style=" margin-right: 20px;"><i class="fa fa-arrow-left"></i></a></li>
+    
+    {% endif %}
+    {% for n in  page_range %}
+    {% if products.number == n %}
+    <li><a href="" class="curent" > {{n}}</a></li>
+    {% else %}
+    <li><a href="?page={{n}}{% if q %}&q={{q}}{% endif %}{% if o %}&o={{o}}{% endif %}">{{n}}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if products.has_next %}
+    <li ><a href="?page={{products.next_page_number}}{% if o %}&o={{o}}{% endif %} {% if q %}&q={{q}}{% endif %}" style=" margin-left: 20px;"> <i class="fa fa-arrow-right"></i></a></li>
+ 
+    {% endif %}
+  </ul>
+  <p><span>{{products.number}}</span> / <span>{{products.paginator.num_pages}}</span></p>
+
+</div>

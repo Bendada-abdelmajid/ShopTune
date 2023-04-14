@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  
+  <link rel="stylesheet" href="{% static '/css/globale.css'%}" />
+  <link rel="stylesheet" href="{% static '/css/style.css'%}" />
+  <link href="{% static '/img/mone.png'%}" rel="icon" type="image/png" />
+  <title>Dr Sh~R | Admin{% block title %} {% endblock title %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+    integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+    integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+
+<body >
+  <script src="{% static '/js/jquery-3.6.0.min.js'%}"></script>
+  <div class="loader" id="loade-animation">
+    <div class="circle">
+      <div class="dot" style="--l:0"></div>
+      <div class="dot" style="--l:1"></div>
+      <div class="dot" style="--l:2"></div>
+      <div class="dot" style="--l:3"></div>
+      <div class="dot" style="--l:4"></div>
+      <div class="dot" style="--l:5"></div>
+      <div class="dot" style="--l:6"></div>
+      <div class="dot" style="--l:7"></div>
+    </div>
+  </div>
+  {% if user.is_superuser %}
+
+  <div class="container">
+
+    <div class="sidebar-container">
+      <div class="overlay"></div>
+      <div class="close center"> <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></div>
+
+      <i class='fa fa-chevron-right toggle icon-btn'></i>
+      <div class="sidebar">
+
+        <a href="{% url 'home' %}" class="logo f-start">
+     
+          
+          <h1 class="s-logo">S</h1>
+          <h1  class="b-logo">Shoptune</h1>
+
+        </a>
+        <ul class="nav-links">
+          <li>
+            <a href="{% url 'admin-page' %}" id="admin_page">
+              <i class="fas fa-th-large"></i>
+              <span class="links_name">Daxboard</span>
+
+
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'products' %}" id="products">
+              <i class='fa fa-box'></i>
+              <span class="links_name">Products</span>
+
+
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main-category' %}" id="categories">
+              <i class="fa-solid fa-network-wired"></i>
+              <span class="links_name">Categories</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'orders' %}" id="orders">
+              <i class='fa fa-list-ul'></i>
+              <span class="links_name">Orders</span>
+
+
+            </a>
+          </li>
+
+
+          <li>
+            <a href="{% url 'send-notificatioons' %}" id="send_notificatioons">
+              <i class='fa fa-envelope'></i>
+              <span class="links_name">send notificatioons</span>
+
+
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'add-pruduct' %}" id="add">
+              <i class='fa fa-pen'></i>
+              <span class="links_name">Add</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'profiel' user.id %}" id="setting">
+
+              <i class='fa fa-cog'></i>
+              <span class="links_name">Profile</span>
+
+            </a>
+          </li>
+          <li class="mode center">
+            <div class="sun-moon">
+              <div class="sun-moon-con">
+                <i class='fa fa-moon icon moon'></i>
+                <i class='fa fa-sun icon sun'></i>
+              </div>
+            </div>
+            <span class="mode-text links_name">Dark Mode</span>
+
+          </li>
+          <li class="log_out">
+            <a href="{% url 'logout_admin' %}">
+
+              <i class='fa fa-door-open'></i>
+              <span class="links_name"> Logout</span>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    <section class="home-section">
+      <nav>
+        <div class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+            <rect width="30" height="1.5"></rect>
+            <rect y="7" x="0" width="20" height="1.5"></rect>
+            <rect y="14" width="30" height="1.5"></rect>
+          </svg>
+        </div>
+
+        {% block adminnav %}
+
+
+        <div class="sidebar-button">
+          <span class="dashboard"><i class="fa fa-home"></i></span>
+        </div>
+        <form class="search-box space_between" id="search-form">
+
+          <input type="text" placeholder="Search..."  id="input-search">
+          <select id="select-search">
+            <option value="p">products</option>
+            <option value="o">orders</option>
+          </select>
+          <button type="submit" class='fa fa-search btn-search'></button>
+        </form>
+       
+        {% endblock %}
+      </nav>
+      <div class="home-content">
+        {% if messages %}
+        {% for message in messages %}
+        <div id="message" class="message {{ message.tags }} show ">
+          <p>{{ message }}</p>
+        </div>
+        <script>
+          setTimeout(() => {
+            document.querySelector('#message').classList.remove('show')
+            document.querySelector('#message p').innerHTML = ""
+          }, 4000)
+        </script>
+
+        {% endfor %}
+        {% endif %}
+        {% block admincontent %}
+        {% endblock %}
+      </div>
+    </section>
+
+  </div>
+  <div class="delete-box-container">
+    <div class="overlay"></div>
+    <div class="delete-box">
+      <h4 id="num">Delete </h4>
+      <p> Are you sure you want to throw this ? </p>
+      <div class="btns f-start">
+        <button class="btn danger" id="delete_btn">yes</button>
+        <button class="btn gray hide-box">cancel</button>
+      </div>
+
+    </div>
+  </div>
+  <script src="{% static '/js/admin.js'%}"></script>
+  {% block script %}
+  {% endblock script%}
+  {% else %}
+  <script>
+    const loadere = document.getElementById('loade-animation')
+    document.querySelectorAll('input').forEach((input) => {
+      input.setAttribute('dir', 'auto')
+    })
+ 
+   
+      function message(text, type) {
+        const mess = document.querySelector('.alert')
+        mess.classList = []
+        mess.innerHTML = text
+        mess.classList.add("alert", "show", type)
+        setTimeout(() => {
+          mess.classList.remove("show")
+        }, 4000)
+      }
+  
+      function seepassWord(e) {
+        if (e.classList.contains('fa-eye')) {
+          e.parentElement.querySelector('input').type = "text"
+          e.classList.replace('fa-eye', "fa-eye-slash")
+        } else {
+          e.parentElement.querySelector('input').type = "password"
+          e.classList.replace("fa-eye-slash", 'fa-eye')
+        }
+      }
+  
+      function login_success() {
+        document.location = '{% url "admin-page" %}'
+      }
+    
+  </script>
+  <section class="login-section center">
+    {% include 'registration/login.html' %}
+
+  </section>
+  
+  {% endif %}
+
+  <!-- <script src="https://kit.fontawesome.com/06349bfd5c.js" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
