@@ -22,7 +22,8 @@ def storView(request):
     for p in products:
         cats.append(p.category)
     cats = list(set(cats))
-    print(cats)
+    print("start site ")
+    print("elow world ")
     new_products = pruduct.objects.all().order_by('product_date')[:5]
     offers_products = pruduct.objects.exclude(
         discount=None).order_by('discount')[:3]
