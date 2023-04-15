@@ -21,7 +21,11 @@ def categories(request):
        
     
 def profile(request):
-    profile=Profile.objects.all()[0]
+    profile={}
+    try :
+        profile=Profile.objects.all()[0]
+    except:
+        profile={}
     return {
         'profile': profile,
     }
