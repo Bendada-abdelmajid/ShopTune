@@ -17,9 +17,7 @@ import cloudinary.api
 import os
 import dj_database_url
 from decouple import config
-# from decouple import config
-# from boto3.s3 import S3Connection
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -151,16 +149,14 @@ cloudinary.config(
   api_secret = "Ju_QTccw-DJusx6YE-L9M1Myp6k",
   secure = True
 )
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-# s3=S3Connection(config('EMAIL_HOST_USER'), config('EMAIL_HOST_PASSWORD'))
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')  #Enter your email
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  #Enter the password to the email
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  #Enter your email
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  #Enter the password to the email
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

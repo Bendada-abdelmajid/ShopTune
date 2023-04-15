@@ -2,7 +2,7 @@
 
 import os
 from django.shortcuts import render, redirect, get_object_or_404
-from decouple import config
+
 from shopkeeper.models import pruduct, categorys, subCat, mainCat
 from basket.models import Ordedr,  OrdedrItem, OrdedrOption
 from basket.basket import Basket
@@ -206,8 +206,8 @@ def search_json(request):
 
 
 def checkoutView(request):
-    clientID =  config('CLIENT_ID') 
-    print(clientID)
+    clientID =  os.environ.get('CLIENT_ID') 
+   
 
     basket = Basket(request)
     if request.user.is_authenticated and basket:
