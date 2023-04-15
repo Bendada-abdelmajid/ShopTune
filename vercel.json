@@ -1,13 +1,14 @@
 {
-    "builds": [{
+    "builds": [
+      {
         "src": "dream_shop/wsgi.py",
-        "use": "@ardnt/vercel-python-wsgi",
-        "config": { "maxLambdaSize": "15mb" }
-    }],
+        "use": "@vercel/python"
+      }
+    ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "dream_shop/wsgi.py"
-        }
+      {
+        "src": "/(.*)",
+        "dest": "dream_shop/wsgi.py"
+      }
     ]
 }
