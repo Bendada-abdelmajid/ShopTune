@@ -69,7 +69,11 @@ class Basket():
     def get_sub_total(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
     def get_delevery(self):
-        return OrdedrOption.objects.all()[0].price 
+        try:
+            price= OrdedrOption.objects.all()[0].price 
+        except:
+            price=0
+        return price
        
     def get_total(self):
         total = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
