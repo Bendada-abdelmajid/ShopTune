@@ -24,6 +24,7 @@ from django.contrib.auth import update_session_auth_hash
 from shopkeeper.models import pruduct, Review
 from django.contrib import messages
 from basket.models import Ordedr
+from django.http import HttpResponse
 
 def generateOTP() :
     digits = "0123456789"
@@ -33,14 +34,16 @@ def generateOTP() :
     return OTP
 
 def send_otp(email, name, code):
-    profile=Profile.objects.all()[0]
-    subject="Activate your shopytune account"
-    html_content = render_to_string('registration/confirmation.html', {'name':name,'code':code, "profile": profile})
-    text_content = strip_tags(html_content) 
-    msg = EmailMultiAlternatives(subject, text_content,profile.email, [email])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-
+    try:
+        profile=Profile.objects.all()[0]
+        subject="Activate your shopytune account"
+        html_content = render_to_string('registration/confirmation.html', {'name':name,'code':code, "profile": profile})
+        text_content = strip_tags(html_content) 
+        msg = EmailMultiAlternatives(subject, text_content,profile.email, [email])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+    except Exception as e:
+       return HttpResponse("somting wrong")
 
    
 def sing_up_uesr(request):

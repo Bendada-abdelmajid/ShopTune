@@ -76,8 +76,13 @@ class Basket():
         return price
        
     def get_total(self):
-        total = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
-        return total + OrdedrOption.objects.all()[0].price 
+         
+        try:
+            total = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())  + OrdedrOption.objects.all()[0].price
+        
+        except:
+            total =0
+        return total 
     def save(self):
         self.session.modified = True
     def vide(self):
