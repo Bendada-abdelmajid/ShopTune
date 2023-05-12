@@ -8,17 +8,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% block metaFb %}
-  <meta property="og:title" content="Dream Shop~Rokya " />
-  <meta property="og:description" content="لا تضيّع المزيد من الوقت، فنحن نضع تحت تصرفك أفضل المنتوجات وأحسن
-  الخدمات المتواجدة في سوق التجارة الإلكترونية بابي الجعد." />
+  <meta property="og:title" content="Shoptune " />
+  <meta property="og:description" content="Find the best deals on a wide range of products at our online store. Browse our selection of clothing, electronics, home goods, and more. Shop now and enjoy fast, reliable shipping and excellent customer service" />
   <meta property="og:image" content="{% static '/img/logo-black.webp'%}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
   {% endblock metaFb %}
-  <meta name="description" content="لا تضيّع المزيد من الوقت، فنحن نضع تحت تصرفك أفضل المنتوجات وأحسن
-  الخدمات المتواجدة في سوق التجارة الإلكترونية بابي الجعد.">
-  <meta name="keywords" content="beejaad, {% for cat in categories%} {{cat}}, {% endfor%}">
+  <meta name="description" content="Find the best deals on a wide range of products at our online store. Browse our selection of clothing, electronics, home goods, and more. Shop now and enjoy fast, reliable shipping and excellent customer service">
+  <meta name="keywords" content="{% for cat in categories%} {{cat}}, {% endfor%}">
   <link href="{% static '/img/mone.png'%}" rel="icon" type="image/png"   />
   <title>Shoptune {% block title %} {% endblock title %}</title>
   <link rel="stylesheet" href="{% static '/css/globale.css'%}" />
@@ -27,6 +25,7 @@
 <link rel="stylesheet" href="{% static '/css/sidebar.css'%}" />
 
   <link rel="stylesheet" href="{% static '/css/all.min.css'%}" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
 <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
   {% if not request.user.is_authenticated  %}
