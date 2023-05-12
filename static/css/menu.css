@@ -78,6 +78,7 @@ nav .search-container {
   transition: 0.3s ease;
   box-shadow: 0 0 12px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.15),
     -5px -3px 10px rgba(0, 0, 0, 0.05);
+	max-width: 990px;
 }
 .sub-menu::before {
   content: "";
@@ -112,7 +113,7 @@ nav .search-container {
 .sub-menu .sub-menu-list {
   padding: 10px 25px 10px;
   gap: 20px;
-  columns: 3;
+  columns: 3 220px;
 }
 
 .sub-menu .sub-menu-list .col {
