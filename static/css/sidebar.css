@@ -1,5 +1,5 @@
 .side-bar {
-  background-color: #121111;
+  background-color: #fff;
   position: sticky;
   top: 60px;
   left: 0;
@@ -8,14 +8,14 @@
   overflow: hidden auto;
   scrollbar-width: thin;
   padding: 20px;
-  color: #c4c3c3;
-  border-top: 1px solid #333;
+  color: #222;
+  border-top: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
   }
   .side-bar::-webkit-scrollbar {
     width: 4px;
   }
   .side-bar  .filters-head {
-    color: #f6f6f6;
     margin-bottom: 30px;
   }
   .side-bar .reset-btn {
@@ -26,26 +26,43 @@
     .side-bar  .drop-down-menu {
       margin: 20px 0;
       padding-bottom: 10px;
-      border-bottom: 1px solid #515151;}
+      border-bottom: 1px solid #f1f1f1;}
+      .side-bar summary {
+      
+        cursor: pointer;
+       
+        list-style: none;
+       } 
+        .side-bar summary::-webkit-details-marker {
+          display: none; 
+        }
+        
+        .side-bar summary :hover {
+          background-color: #f2f5f9;
+        }
       .side-bar  .drop-down-menu:last-child {
         border-bottom: none;}
     .side-bar  .drop-down-menu .drop-down-menu-head {
       margin-bottom: 15px;
 font-size: 16px;
-color: #c4c3c3;
+color: #111;
      }
      .side-bar  .drop-down-menu .drop-down-menu-body>a,
     .side-bar  .drop-down-menu .drop-down-menu-body p{
       margin-bottom: 5px ;
       gap: 10px;
-      font-size: 15px;
+      font-size: 14px;
       display: flex;
 align-items: center;
 padding-left: 5px;
 cursor: pointer;
+transition: 0.3s ease;
      }
      .side-bar .drop-down-menu .drop-down-menu-body p.active{
       opacity: 0.8;
+    }
+     .side-bar .drop-down-menu .drop-down-menu-body p:hover{
+      color:#000;
     }
      .side-bar .clr {
       margin-left: 0;
@@ -69,20 +86,18 @@ cursor: pointer;
       .side-bar .drop-down-menu .drop-down-menu-body p.active .clr svg{
         opacity: 1;
       }
-     .double_range_slider_box {
-      position: relative;
-      width: 100%;
-      height: 110px;
-      background: #1e1e1f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-    }
+     
+    .price-cont {
+    display: flex;
+  margin-bottom: 20px;
+  font-size: 14px;
+  gap:5px;
+}
     
     .double_range_slider {
-      width: 90%;
+      width: 100%;
       height: 2px;
+      margin: 25px 0;
       position: relative;
       background-color: #dddddd;
       border-radius: 20px;
@@ -91,34 +106,14 @@ cursor: pointer;
       height: 100%;
       position: absolute;
       border-radius: 20px;
-      background-color: #fac86a;
+      background-color: #222;
     }
     
-    .minvalue {
-      position: absolute;
-      padding: 5px 8px;
-      background: #483b26;
-      border-radius: 50%;
-      color: white;
-      bottom: 0;
-      transform: translate(0, -80%);
-      left: 0;
-      font-size: 1rem;
-      transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      will-change: left, transform;
-    }
-    .maxvalue {
-      position: absolute;
-      padding: 5px 8px;
-      background: #483b26;
-      border-radius: 50%;
-      color: white;
-      top: 0;
-      transform: translate(0, 80%);
-      right: 0;
-      font-size: 1rem;
-      transition: right 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      will-change: right, transform;
+    .price-value {
+      font-size:14px;
+
+   
+      
     }
     .price-input {
       position: absolute;
@@ -133,10 +128,10 @@ cursor: pointer;
     }
     .price-input::-moz-range-thumb,
     .price-input::-webkit-slider-thumb {
-      height: 20px;
+      height: 15px;
       width: 3px;
       border: none;
-      background-color: #fac86a;
+      background-color: #222;
       border-radius: 0;
       pointer-events: auto;
       -webkit-appearance: none;
@@ -150,13 +145,13 @@ cursor: pointer;
       padding: 10px 20px;
       margin: 10px auto;
       display: block;
-      background: #1e1e1f;
+      background: #222;
       border-radius: 10px;
       width: 100%;
       font-weight: 600;
       font-size: 18px;
       cursor: pointer;
-      color: #f4f4f4;
+      color: #fff;
     transition: 0.3s;}
     #price-form button:hover {
       background: #121213;

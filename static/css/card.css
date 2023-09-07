@@ -6,10 +6,11 @@
    padding: 0;
    border: none;
   display: grid;
-  grid-template-columns: calc(55% - 40px) 45%;
+  grid-template-columns: calc(50% - 40px) 50%;
   width: 100%;
   justify-content: space-between;
   gap: 40px;
+  max-height: calc(100vh - 70px);
   position: relative;
 
 }
@@ -17,7 +18,7 @@
 scroll-margin-top: 100px;}
 .path
  {
-  padding: 10px 20px;
+  padding: 10px 0;
 }
 
 
@@ -56,6 +57,7 @@ scroll-margin-top: 100px;}
   object-position: center center;
   transition: 0.3s cubic-bezier(0.1, 0.3, 0.1, 1) 0s;
   background: #ededed;
+  max-height: calc(100vh - 70px);
  
   /* max-height: calc(100vh - 110px); */
 }
@@ -80,7 +82,7 @@ scroll-margin-top: 100px;}
 .card .card_imgs {
   position: absolute;
   top:50%;
-  right: 50px;
+  right: 20px;
    transform: translateY(-50%);
    z-index: 200;
 }
@@ -173,7 +175,7 @@ transition: all 0.5s ease;
 }
 
 .card__label {
-  font-size: 1.6rem;
+  font-size: 14px;
   font-weight: 500;
   color: rgb(44, 43, 43);
   text-transform: uppercase;
@@ -212,61 +214,62 @@ transition: all 0.5s ease;
   background-repeat: no-repeat;
   background-size: 1.9rem auto, 100%;
   cursor: pointer;
-
+  border: 1px solid #222;
   font-size: 17px;
 }
 
 .card__select:focus {
-  outline: 2px solid #ecbe9c;
+  border-color: #111;
 }
 
 .card__counter {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.4em;
-  width: 100%;
-  border-radius:50px;
-  background: var(--mainGrey);
+  
+  width: fit-content;
 }
 
 .card__numb {
-  background: #fff;
   appearance: none;
   border: none;
   cursor: pointer;
   border-radius: 50%;
   min-width: 40px;
+  font-weight: 300;
   height: 40px;
 }
 
 .card__count {
-  font-size: 2rem;
-  font-weight: 500;
+  font-size: 16px;
+  border: 1px solid #222;
+
+   
   text-align: center;
   background-color: transparent;
-  border: none;
+  height: 40px;
   margin: 0;
-  width: 100%;
+  width: 40px;
   user-select: none;
   pointer-events: none;
 }
 .card_btns {
-  margin-top: 20px;
   gap: 1em;
 }
 #add-button {
-  font-size: 18px;
-  display: flex;
+  font-size: 14px;
   width: fit-content;
-  gap: 15px;
   white-space: nowrap;
-  background: #1d1d1d;
+  border: 1px solid #222;
+  height: 40px;
+  padding: 0px 20px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.6px;
 }
 
-
+#add-button:hover {
+  background: #222;
+  color: #fff;
+}
 .card_btn:hover {
   color: #f4d9c9;
   background: #0f0e0e;
@@ -278,17 +281,18 @@ transition: all 0.5s ease;
 }
 
 .card__content .f_btn span {
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
   display: block;
   margin-right: 20px;
-  flex-grow: 1;
 }
 
 .card__content .f_btn a {
-  color: white;
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
 }
-
+button {
+cursor: pointer;}
 .f_btn .main-btn {
   font-size: 18px;
   font-weight: 600;
@@ -676,4 +680,9 @@ width: fit-content;}
   .add-review-section {
     gap: 20px;
     flex-direction: column;}
+}
+
+.footer_cont {
+  margin-top: 0;
+  border-top: 1px solid #f1f1f1;
 }

@@ -21,33 +21,22 @@ const minRangeFill = () => {
    
     range.style.right = 100 - ( ( rangeInput[1].value - rangeInput[0].min)/ (rangeInput[1].max  - rangeInput[0].min) )*100  +"%";
   }
-  const MinVlaueBubbleStyle = () => {
-    minPercentage = ((rangeInput[0].value - rangeInput[0].min) / rangeInput[0].max) * 100 
-    minval.style.left = minPercentage + "%"
-    minval.style.transform = `translate(-${minPercentage /2}%, -80%)`
-    
-  }
-  const MaxVlaueBubbleStyle = () => {
-    maxPercentage = 100 -(maxRange / rangeInput[1].max) * 100
-    maxval.style.right = maxPercentage + "%"
-    maxval.style.transform = `translate(${maxPercentage / 2}%, 80%)`
-  }
+ 
 
   const setMinValueOutput = () => {
     minRange = parseInt(rangeInput[0].value);
-    minval.innerHTML = rangeInput[0].value
+    minval.innerHTML = parseFloat(rangeInput[0].value).toFixed(2)
   }
   const setMaxValueOutput = () => {
     maxRange = parseInt(rangeInput[1].value);
-    maxval.innerHTML = rangeInput[1].value
+    maxval.innerHTML = parseFloat(rangeInput[1].value).toFixed(2)
   }
 
   setMinValueOutput()
   setMaxValueOutput()
   minRangeFill()
   maxRangeFill()
-  MinVlaueBubbleStyle()
-  MaxVlaueBubbleStyle()
+
 
 rangeInput.forEach((input) => {
 input.addEventListener("input", (e) => {
@@ -58,15 +47,13 @@ input.addEventListener("input", (e) => {
 
   
 
-  MinVlaueBubbleStyle();
-  MaxVlaueBubbleStyle();
 
   if (maxRange - minRange < minRangeValueGap) {     
     if (e.target.className === "min") {
       rangeInput[0].value = maxRange - minRangeValueGap;
       setMinValueOutput();
       minRangeFill();
-      MinVlaueBubbleStyle();
+      
       e.target.style.zIndex = "2"
     } 
     else {
@@ -74,7 +61,7 @@ input.addEventListener("input", (e) => {
       e.target.style.zIndex = "2"
       setMaxValueOutput();
       maxRangeFill();
-      MaxVlaueBubbleStyle();
+     
     }
   } 
 

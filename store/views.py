@@ -60,8 +60,8 @@ def cardView(request, slug):
         total_rate=0
         total_persntage=0
     
-    products = pruduct.objects.filter(category=prod.category)
-    
+    products = pruduct.objects.filter(category__main_cat = prod.category.main_cat ).exclude(id=prod.id)[:4]
+    print(prod.category.main_cat)
     cats=categorys.objects.filter(sub_cat=prod.category.sub_cat)
     print(prod.category.sub_cat.id)
   

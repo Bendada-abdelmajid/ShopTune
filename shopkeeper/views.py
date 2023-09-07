@@ -101,26 +101,28 @@ def delete_order(request, pk):
     return redirect('orders')
  
 def AddPruduct(request):
-   
-    form = PruductForm(request.POST, request.FILES)
-    files = request.FILES.getlist('image')
-    if form.errors :
-        for field in form :
-            for error in field.errors:
-                print(error)
-    if form.is_valid():
-        prud = form.save(commit=False)
-        prud.save()
-        for f in files:
-            img = Image(image=f)
-            img.save()
-            prud.image.add(img)
-        prud.colors.set(request.POST.getlist('colors'))
-        prud.chanegePrice()
-        prud.save()
-        messages.success(request, "Has been added with success.")
-        return redirect('add-pruduct')
-   
+    try:
+        form = PruductForm(request.POST, request.FILES)
+        files = request.FILES.getlist('image')
+        if form.errors :
+            for field in form :
+                for error in field.errors:
+                    print(error)
+        if form.is_valid():
+            prud = form.save(commit=False)
+            prud.save()
+            for f in files:
+                img = Image(image=f)
+                img.save()
+                prud.image.add(img)
+            prud.colors.set(request.POST.getlist('colors'))
+            prud.chanegePrice()
+            prud.save()
+            messages.success(request, "Has been added with success.")
+            return redirect('add-pruduct')
+    except Exception as e:
+        # Handle other exceptions (generic exception handler)
+        print("An error occurred:", e)
 
     return render(request, 'admin_pages/add/add_pruduct.html', {'form': form})
 def AddMainCategory(request):

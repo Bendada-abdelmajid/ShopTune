@@ -99,14 +99,35 @@ WSGI_APPLICATION = 'dream_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#     default="postgresql://Bendada-abdelmajid:v2_434kG_XAB8C2ksxd6gNH9pSGDZUtB@db.bit.io:5432/Bendada-abdelmajid/Shoptune",
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     ),
+#     }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME':  os.environ.get('PGDATABASE'),
+#         'USER':  os.environ.get('PGUSER'),
+#         'PASSWORD':  os.environ.get('PGPASSWORD'),
+#         'HOST':  os.environ.get('PGHOST'),
+#         'PORT':  os.environ.get('PGPORT'),
+#     }
+# }
 DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    ),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':  os.environ.get('PGDATABASE'),
+        'USER':  os.environ.get('PGUSER'),
+        'PASSWORD':  os.environ.get('PGPASSWORD'),
+        'HOST':  os.environ.get('PGHOST'),
+        'PORT':  os.environ.get('PGPORT'),
     }
-
-
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

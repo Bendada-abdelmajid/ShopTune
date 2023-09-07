@@ -3,6 +3,7 @@ header {
   position: sticky;
   top: 0;
   background-color: #fff;
+  border-bottom: 1px solid #f1f1f1;
   z-index: 300;
 }
 header .menu-btn {
@@ -17,27 +18,31 @@ header .menu-btn:hover {
   background: #eee;
 }
 header .logo {
-  background: #121111;
-  /* color: #fff; */
-  height: 60px;
-  min-width: 250px;
+  background: #ffff;
+  height: 100%;
+  min-width: 270px;
   padding: 0 20px;
-  max-width: 250px;
-  font-size: 30px;
+  max-width: 270px;
+  font-size: 20px;
   letter-spacing: 1.2px;
-color: #fff;
+color: #222;
 text-transform: uppercase;
-font-weight: 400;
+border-right: 1px solid #f1f1f1;
+font-weight: 300;
+letter-spacing: -0.6px;
 }
+header .logo strong {
+font-weight: 500;
+letter-spacing:0.2px}
 
 nav {
   display: grid;
   grid-template-columns: auto auto;
 
-  margin: 0 20px;
+  padding: 0 20px;
   gap: 30px;
   width: 100%;
-  border-bottom: 1px solid #eee;
+
   height: 60px;
   transition: 0.3s ease;
 }
@@ -648,19 +653,10 @@ position: relative;
     border-bottom:none;}
   header .logo {
   
-    height: fit-content;
     min-width: unset;
     width: fit-content;
     max-width: unset;
-    
-   
-  
-    background: transparent;
-color: #222;
 
-border-right: 1px solid rgb(221, 221, 221);
-font-size: 25px;
-letter-spacing: 0.5px;
   }
 
  

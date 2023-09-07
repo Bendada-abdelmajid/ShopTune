@@ -15,7 +15,7 @@
 
 .stor{
   display: grid;
-  grid-template-columns: 250px calc(100% - 250px);
+  grid-template-columns: 270px calc(100% - 270px);
 }
 
 
@@ -513,22 +513,22 @@ max-height: 450px;
 }
 
 .content h3 {
-  font-size: 22px;
+  font-size: 16px;
   line-height: 1.4;
 }
 
 .content .price {
   display: flex;
-  font-size: 16px;
+  font-size: 14px;
   gap: .5rem;
   align-items: center;
   /* margin-top: 10px; */
 }
 
 .content .amount {
-  color: #02795E;
-font-weight: 600;
-font-size: 18px;
+  color: #555;
+font-weight: 400;
+font-size: 14px;
 }
 
 .content .cut {

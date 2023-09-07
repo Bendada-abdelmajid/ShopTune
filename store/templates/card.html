@@ -107,16 +107,16 @@
 
 
 
-<div class="path f-start">
-  <a href="/">Home</a> <span>/</span> <a href="{% url 'main-cats' prod.category.main_cat.slug   %}">{{prod.category.main_cat}}</a> <span>/</span> <a
-    href="{% url 'sub-cats' prod.category.main_cat.slug prod.category.sub_cat.slug  %}">{{prod.category.sub_cat.name}}</a> <span>/</span> <a href="{% url 'cat-cats' prod.category.main_cat.slug prod.category.sub_cat.slug  prod.category.slug  %}">{{prod.category.name}}</a> <span>/</span>
-  <span>{{prod.title}}</span>
-</div>
+
 <main class="card main-grid face m-scroll" data-id="{{prod.id}}" id="details">
 
   <div class="card__content">
+    
     <div class="card__head">
-
+      <div class="path f-start">
+        <a href="/">Home</a> <span>/</span> <a href="{% url 'main-cats' prod.category.main_cat.slug   %}">{{prod.category.main_cat}}</a> <span>/</span>
+        <span>{{prod.title}}</span>
+      </div>
       <h2 id="title">{{prod.title}}</h2>
       <p class="card__price"> $ <span id="card-price">{{prod.price}}</span></p>
       <p class="card__text">
@@ -140,8 +140,8 @@
         </div>
 
         {% endif %}
-
-        {% if prod.colors.lenght > 0 %}
+      
+        {% if prod.colors.all %}
 
         <div class="card__color">
           <label for="color" class="card__label">Colors</label>
@@ -157,32 +157,37 @@
 
       </div>
       <div class="card_btns f-start">
-        <button class="main-btn f-start" id="add-button" value="{{prod.id}}">
-          <div class="icon center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bag-plus"
-              viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
-              <path
-                d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-            </svg>
-          </div>
-          <p>Add to Basket</p>
-        </button>
         <div class="card__counter">
           <button class="card__numb center" id="sub"><i class="fa fa-minus"></i></button>
           <input type="number" class="card__count" value="1" id="qty" maxlength="1" />
+          
+          
           <button class="card__numb center" id="add"><i class="fa fa-plus"></i></button>
+        
         </div>
+        <button class="center" id="add-button" value="{{prod.id}}">
+          
+          Add to cart
+        </button>
+        
       </div>
       <div class="f_btn f-start">
         <span>Share on :</span>
-        <button class="main-btn center" title="شاركه مع اصدقائك على فيسبوك">
+        <button class=" " >
           {% post_to_facebook  object_or_url "<i class='fab fa-facebook-f'></i>" %}
         </button>
-        <button class="main-btn center">
-          <i class='fab fa-instagram'></i>
+        <button class="">
+          {% post_to_whatsapp object_or_url "<i class='fab fa-whatsapp'></i>" %}
         </button>
+        <button class="">
+          {% post_to_twitter "{{prod.title}}. Check it out!" object_or_url "<i class='fa-brands fa-x-twitter'></i>"  %}
+        </button>
+       
+         
+
+          {% copy_to_clipboard object_or_url "<i class='far fa-copy'></i>"  %}
+
+      
       </div>
     </div>
 
@@ -405,7 +410,7 @@
     <button type="submit">Submit your riview</button>
   </form>
 </div>
-
+{% add_copy_script %}
 <script>
   new Splide('.splide.simeler', {
     gap: "15px",

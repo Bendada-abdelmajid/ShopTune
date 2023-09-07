@@ -78,6 +78,7 @@ class pruduct(models.Model):
    
     def get_sizes(self):
         sizes=[]
+        
         if self.size != None:
             sizes.append(self.size)     
         if self.size2 != None:
