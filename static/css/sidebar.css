@@ -9,7 +9,6 @@
   scrollbar-width: thin;
   padding: 20px;
   color: #222;
-  border-top: 1px solid #f1f1f1;
   border-right: 1px solid #f1f1f1;
   }
   .side-bar::-webkit-scrollbar {
